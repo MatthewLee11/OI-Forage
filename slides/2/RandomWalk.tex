@@ -1,0 +1,56 @@
+﻿%
+% GNU courseware, Yuchen Li, 2018
+%
+
+\section{随机游走}
+
+\frame{
+\centerline{\textbf{\Huge{随机游走}}}
+}
+
+\frame{\frametitle{定义}
+
+随机游走（random walk）也称随机漫步，随机行走等是指基于过去的表现，无法预测将来的发展步骤和方向。核心概念是指任何无规则行走者所带的守恒量都各自对应着一个扩散运输定律 ，接近于布朗运动，是布朗运动理想的数学状态，现阶段主要应用于互联网链接分析及金融股票市场中。
+}
+
+\frame{\frametitle{思想}
+
+全局最优化，操作简单，不易陷入局部极小值
+}
+
+\frame{\frametitle{思想}
+	\begin{itemize}
+		\item<1-> 全局最优化：目前还没有一个通用的办法可以对任意复杂函数求解全局最优值。
+		\item<2-> 操作简单：易于依托代码实现该算法。
+		\item<3-> 不易陷入局部极小值：源于算法中的不断迭代过程。
+	\end{itemize}
+}
+
+\frame{\frametitle{算法流程}
+	\begin{itemize}
+		\item<1-> 设f(x)是一个含有n个变量的多元函数,x=(x1,x2,...,xn)为n维向量。
+		\item<2-> 给定初始迭代点x，初次行走步长$\lambda$，控制精度$\epsilon$。
+		\item<3-> 给定迭代控制次数N，k为当前迭代次数，置k=1。
+		\item<4-> 当k<N时，随机生成一个(−1,1)之间的n维向量u=(u1,u2,⋯,un),(−1<ui<1,i=1,2,⋯,n)。
+		\item<5-> 将n维向量标准化得到
+		\begin{equation} 
+        \label{eqn15} 
+        u' =\frac{u}{\sqrt{\sum_{i=1}^nu_{i}^2}}
+        \end{equation}
+		\item<6-> 令
+		\begin{equation} 
+        \label{eqn16} 
+		x_1 =x + \lambda u'
+		\end{equation}从而完成第一步游走。
+	\end{itemize}
+}
+
+\frame{\frametitle{算法流程}
+	\begin{itemize}
+		\item<1-> 计算函数值，如果 f(x1)<f(x)，即找到了一个比初始值好的点，那么k重新置为1，将x1变为x，回到第2步；否则k=k+1，回到第3步。
+		\item<2-> 如果连续N次都找不到更优的值，则认为，最优解就在以当前最优解为中心，当前步长为半径的N维球内。
+		\item<3-> 此时，如果$\lambda<\epsilon$，则结束算法；否则，令$\lambda$减半，回到第1步，开始新一轮游走。
+	\end{itemize}
+}
+
+%end
