@@ -470,13 +470,13 @@ F\left ( x;\lambda  \right )= \left\{\begin{matrix}
 %\section{莱维-辛钦定理}
 \begin{frame}
 \frametitle{莱维-辛钦定理}
-莱维-辛钦定理:X为levy过程，特征指数为$\psi$.存在唯一的$a \in R,\sigma \geq 0$以及测度$\prod$,满足$\int_R 1 \bigwedge x \prod \,dx$  \[\psi(\theta)=ia\theta-\frac{1}{2}\sigma_{2}\theta_{2}+(\int_R e^{i\theta x}-1-i\theta xI_{[-1,1]}(x))\prod(dx) \, \]对于上述三个参数($a,\sigma,\prod$)，a包含了任何确定的漂移项，$\sigma$是高斯系数，描述了布朗运动的波动性，而$\prod$描述了X跳跃的大小和强度
+莱维-辛钦定理:X为levy过程，特征指数为$\psi$.存在唯一的$a \in R,\sigma \geq 0$以及测度$\prod$,满足$\int_R 1 \bigwedge x \prod \,dx$  \[\psi(\theta)=ia\theta-\frac{1}{2}\sigma^{2}\theta^{2}+(\int_R e^{i\theta x}-1-i\theta xI_{[-1,1]}(x))\prod(dx) \, \]对于上述三个参数($a,\sigma,\prod$)，a包含了任何确定的漂移项，$\sigma$是高斯系数，描述了布朗运动的波动性，而$\prod$描述了X跳跃的大小和强度
 \end{frame}
 
 %\section{levy过程的特例}
 \begin{frame}
 \frametitle{possion 过程}
-possion过程的概率密度函数为$\mu_{\lambda({k})}=e^{-\lambda}\lambda^{k}/k!$,因此possion分布的特征函数为\[\sum_{k=1}^{n}e^{i\theta k}\mu_{\lambda}({k})=e^{\lambda(e^{i\lambda}-1)}=[e^{\frac{\lambda}{n}(e^{i\theta}-1)]^{n}} \]因此对于一个possion过程{$N_{t}:t \geq 0$}如果参数为$\lambda t$，则是levy过程，特征函数为$E(e^{i\theta N_{t}})=e^{\lambda t(e^{i\theta}-1)}$,特征指数为$\psi(\theta)=\lambda(e^{i\theta}-1)$
+possion过程的概率密度函数为$\mu_{\lambda({k})}=e^{-\lambda}\lambda^{k}/k!$,因此possion分布的特征函数为\[\sum_{k=1}^{n}e^{i\theta k}\mu_{\lambda}({k})=e^{\lambda(e^{i\theta}-1)}=[e^{\frac{\lambda}{n}(e^{i\theta}-1)]^{n}} \]因此对于一个possion过程{$N_{t}:t \geq 0$}如果参数为$\lambda t$，则是levy过程，特征函数为$E(e^{i\theta N_{t}})=e^{\lambda t(e^{i\theta}-1)}$,特征指数为$\psi(\theta)=\lambda(e^{i\theta}-1)$
 \end{frame}
 
 \begin{frame}
@@ -489,7 +489,7 @@ N为possion过程，对于$\theta \in R $,特征函数为\[E(e^{i\theta\sum_{i=1
 
 \begin{frame}
 布朗运动\newline\newline
-布朗运动的概率密度函数为：\[\mu_{s,\gamma}(dx):=\frac{1}{\sqrt{2\pi s^{2}}}e^{-(x-\gamma)^{2}/2s^{2}}dx ,x \in R\]我们可以得到他的特征函数和特征指数：\[E[e^{i\theta U}]=e^{\frac{1}{2}s^{2}\theta^{2}+i\theta\gamma}\]三个参数为$a=-\gamma,\sigma=s,\prod=0$
+布朗运动的概率密度函数为：\[\mu_{s,\gamma}(dx):=\frac{1}{\sqrt{2\pi s^{2}}}e^{-(x-\gamma)^{2}/2s^{2}}dx ,x \in R\]我们可以得到他的特征函数和特征指数：\[E[e^{i\theta U}]=e^{-\frac{1}{2}s^{2}\theta^{2}+i\theta\gamma}\]三个参数为$a=-\gamma,\sigma=s,\prod=0$
 
 \end{frame}
 
@@ -498,7 +498,7 @@ N为possion过程，对于$\theta \in R $,特征函数为\[E(e^{i\theta\sum_{i=1
 \frametitle{莱维-伊藤分解}
 
 
-根据莱维-辛钦定理，我们可以得到如下公式\[\Psi(\theta)=\{ia\theta+\frac{1}{2}\sigma^{2}\theta^{2}\}+\{\prod(R\backslash(-1,1))\int_{|x|\geq1}(1-e^{i\theta x})\frac{\prod{dx}}{\prod(R\backslash(-1,1)} \,\}\]\newline\[+\{\int_{0<|x|<1}(1-e^{i\theta x}+i\theta x)\prod(dx) \,\} \]
+根据莱维-辛钦定理，我们可以得到如下公式\[\Psi(\theta)=\{ia\theta-\frac{1}{2}\sigma^{2}\theta^{2}\}+\{\prod(R\backslash(-1,1))\int_{|x|\geq1}(1-e^{i\theta x})\frac{\prod{dx}}{\prod(R\backslash(-1,1)} \,\}\]\newline\[+\{\int_{0<|x|<1}(1-e^{i\theta x}+i\theta x)\prod(dx) \,\} \]
 第一项是线性布朗运动，第二项是复合泊松过程，第三项是平方可积鞅.因此levy过程可由这三个过程组合而成.
 
 \end{frame}
