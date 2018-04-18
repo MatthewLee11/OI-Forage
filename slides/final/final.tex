@@ -387,6 +387,788 @@ N为possion过程，对于$\theta \in R $,特征函数为\[E(e^{i\theta\sum_{i=1
 第一项是线性布朗运动，第二项是复合泊松过程，第三项是平方可积鞅.因此levy过程可由这三个过程组合而成.
 
 \end{frame}
+
+
+
+\section{分解定理}\fontsize{10pt}{10pt}\selectfont
+
+\frame{
+	\centerline{\textbf{\Huge{分解定理}}}
+}
+\frame{\frametitle{背景}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright
+	细菌觅食算法(BFA)由K. M. Passino于2002年基于Ecoli大肠杆菌在人体肠道内吞噬食物的行为，提出一种新型仿真算法，该算法属于随机搜索算法。该算法因具有群体智能算法并行搜索、易于跳出局部极小值、对初值和参数选择要求低、鲁棒性好、全局搜索等优点，成为生物启发式计算研究领域的又一热点。
+	\begin{figure}[H]
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=8cm]{figure/1.png}\\
+		\caption{群体智能}\label{fig1}
+	\end{figure}
+	
+}
+
+\frame{\frametitle{大肠杆菌特点}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	基于大肠杆菌生物模型理论，算法主要融合了大肠杆菌的趋化行为、复制行为、迁徙行为和描述生物群体感应机制的聚集行为。大肠杆菌是一种常见的普通原核生物，由细胞膜、细胞壁、细胞质和细胞核等构成，其两端钝圆呈杆状。表面布满纤毛和鞭毛。纤毛是一种呈凸起状且可运动的细胞器，通过纤毛向彼此传递消息。
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=8cm]{figure/2.png}\\
+		\caption{大肠杆菌模型}\label{fig2}
+	\end{figure}
+	
+}
+\frame{\frametitle{大肠杆菌特点}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	大肠杆菌依靠其表面的鞭毛进行每秒大约100~200圈的转动以此来实现其自身的运动，当鞭毛逆时针摆动时，会给细菌一个向前的推力保证其向前游走；而当鞭毛进行顺时针摆动时，会给其一个拉力其细菌翻转。大肠杆菌正是通过游动和翻转这两个基本动作组合来实现其在空间区域中的移动。
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=8cm]{figure/3.png}\\
+		\caption{大肠杆菌运动模型}\label{fig3}
+	\end{figure}
+	
+}
+
+\frame{\frametitle{大肠杆菌特点}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	大肠杆菌虽是一种简单的生物，但对所经历的周围环境具有记忆其状态的能力，这种能力帮助大肠杆菌在搜索食物的过程中避开有毒物质向着存在食物的方向运动。同时，大肠杆菌也会对所经历过的所有状态都行评价据此反馈信息给后面的状态改变。包括周围环境的物理、化学因素变动所引起的温度过高、营养匮乏、环境PH值过偏等；也包括细菌本身的生理代谢过程也会使得所处环境发生变化。区域细菌浓度也是信号之一。
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=8cm]{figure/8.png}\\
+		\caption{应用示意图}\label{fig8}
+	\end{figure}
+	
+}
+
+\frame{\frametitle{大肠杆菌特点}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	通常食物是分布在多个区域之中的。首先，大肠杆菌利用自己的鞭毛进行游动来搜索食物的潜在区域。然后大肠杆菌决定是否进入选择的目标区域，若不进入，则继续搜索。当进入一个目标区域后，如果食物丰富，则停留至食物耗尽，之后沿着上次前进的方向继续搜索食物；如若该区域食物匮乏，那么细菌将会改变前进方向，朝着可能食物丰富区域搜索。
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=5cm]{figure/4.png}\\
+		\caption{大肠杆菌搜索食物流程图}\label{fig4}
+	\end{figure}
+	
+}
+
+
+\frame{\frametitle{算法基本原理}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright
+	大肠杆菌自身的引导控制系统来趋利避害。算法中待求解优化问题的解空间对应为细菌觅食的整个搜索空间，各个优化问题的解则对应为细菌在空间中的位置，那么最优解总是被由更好食物源位置所对应的更好的优化问题解所不断靠近。
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=8cm]{figure/5.png}\\
+		\caption{求解过程}\label{fig5}
+	\end{figure}
+	
+}
+
+\frame{\frametitle{算法基本原理}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright
+	细菌觅食算法是随机搜索的智能优化算法，其数学模型主要有三个基本步骤：趋向、复制、迁移。几何解释为三个循环层操作，最里层是趋向，中间层是复制，最外层是迁移。细菌觅食主要就是依据这三层循环操作来寻找食物。
+}
+\frame{\frametitle{算法基本原理}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright
+	其觅食特点依靠鞭毛的旋转方向，逆时针，快速前进；顺时针，则停留原地。相应的数学模型解释就是当计算出两个点位置的函数的适应度值，通过比较结果决定大肠杆菌是继续前进还是寻找随机方向移动，当尝试次数达到最大限制数时选择下一个大肠杆菌进行趋向性操作。其数学表达式为
+	\begin{equation}
+	\theta^{'}(j+1,k,l)=\theta^{'}(j,k,l)+C(i)\frac{\Delta(i)}{\sqrt{\Delta(i)^T\Delta(i)}}
+	\end{equation}
+	其中$\theta^{'}(j,k,l)$表示大肠杆菌$i$在第$j$次趋向第$k$次复制第$l$次迁移操作之后所在的位置，$C(i)$为趋向步长，$\frac{\Delta(i)}{\sqrt{\Delta(i)^T\Delta(i)}}$为移动的一个随机前进方向。
+}
+\frame{\frametitle{算法基本原理}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright
+	自然界生物进化的准则是优胜劣汰，因此性能差的细菌会被淘汰。在BFA模型中,$J(i,j,k,l)$表示细菌$i$在第$j$次趋向第$k$次复制第$l$次迁移操作之后的适应值。$J_{health}^i$是细菌$i$的能量函数，其大小决定细菌觅食能力的强弱。将觅食后的细菌的能量函数进行大小排序，淘汰掉$\frac{S}{2}$个能量值较小的细菌，将剩下的进行赋值操作，新生成的复制细菌与原细菌具有相同的觅食能力。
+	
+}
+\frame{\frametitle{算法基本原理}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright
+	在生物体中存在的细菌，其环境对其觅食具有很大的影响，比如局部区域温度升高或者食物被消耗掉，这些必然导致细菌被迫迁移到新的区域去寻找食物。这种迁移未必会导致细菌寻找不到新的食物，反而会对种群的良好生长起到促进作用，在经过复制操作之后细菌若按照一定的概率进行迁移，新的种群具有随机特性，与原种群相比可能有不同的觅食能力，这种随机性能使群体跳出局部极值而更好的靠近全局最优解区域。
+	
+}
+\frame{\frametitle{算法基本原理}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright
+	在细菌觅食过程中，并不是独立行为，即在模型中体现为引力和斥力，当引力作用是，细菌会快速的聚集在一起，围绕最优食物觅食，形成细菌群。当斥力起作用时，表示细菌能具有更好的独立寻找食物的能力。其数据模型为
+	\begin{equation}
+	\begin{split}
+	J_{cc}(\theta,P(j,k,l))&=\sum_{i=1}^SJ_{cc}(\theta,\theta^i(j,k,l))\\
+	&=\sum_{i=1}^S[-d_{att}\exp(-\omega_{att}\sum_{m=1}^P(\theta-\theta_m^i)^2)]\\
+	&+\sum_{i=1}^S[h_{rep}\exp(-\omega_{rep}\sum_{m=1}^P(\theta-\theta_m^i)^2)]
+	\end{split}
+	\end{equation}
+	其中$d_{att}$是引力深度，$\omega_{att}$是引力宽度，$h_{rep}$是斥力高度，$\omega_{rep}$是斥力宽度，$\theta_m^i$是细菌$i$的第$m$个分量。通常取$d_{att}=h_{rep}$，趋向性操作的适应度值的计算公式可表示为：
+	\begin{equation}
+	J(i,j+1,k,l)=J(i,j,k,l)+J_{cc}(\theta^i(j+1,k,l),P(j+1,k,l))
+	\end{equation}
+}
+\frame{\frametitle{算法主要步骤}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright
+	
+	Step1:初始化参数，种群大小$S$，空间维数$P$,趋向性行为的次数$N_c$，趋向性操作前进最大步数$N_s$,复制性操作的次数$N_{re}$，迁移操作的次数$N_{ed}$,迁移概率$P_{ed}$，细菌$i$的信息用$D$维向量表示为$\theta^i=[\theta_1^i,theta_2^i,...,\theta_D^i],i=1,2,...,S,$趋向性步长$C(i)$.
+	
+	Step2:迁移循环操作；
+	
+	Step3:复制循环操作；
+	
+	Step4:趋向性循环操作；
+	
+	(1)细菌$i$进行趋向性一步；
+	
+	(2)计算$J(i,j,kl)$,储存最优值$J_{best}$；
+	
+	(3)随机生成向量$\Delta(i)$，细菌按照步长$C(i)$进行移动；
+	
+	(4)计算此时的适应度值$J(i,j+1,k,l)$;
+	
+	(5)旋转判定条件：若$m<N_s,m=m+1$,若$J(i,j+1,k,l)<J_{best}$，则$J_{best}=J(imj+1,k,l)$,此时$\theta^i(j+1,k,l)=\theta^i(j,k,l+C(i)\frac{\Delta(i)}{\sqrt{\Delta(i)^T\Delta(i)}}$.根据细菌的信息量$\theta^i(j+1,k,l)$计算新的$J(j+1,k,l)$否则$m=N_s$.
+	
+	(6)重新处理下一个细菌。
+	
+	
+}
+
+
+\frame{\frametitle{算法主要步骤}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright
+	
+	Step5:若$j<N_c$返回上一步进行细菌趋向性操作。
+	
+	Step6:复制，淘汰$\frac{S}{2}$个能量值小的细菌，对剩下的$\frac{S}{2}$个细菌进行复制。
+	
+	Step7:若$k<N_{re}$，返回Step3.
+	
+	Step8:迁移，达到一定条件后细菌以概率$P_{ed}$重新觅食。若$l<N_d$，则返回Step2，否则寻优结束。
+	
+	Step9:循环结束条件判断，条件满足则结束，输出结果。
+}
+\frame{\frametitle{参数选取}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright
+	
+	模型中种群的规模$S$太大导致计算量增大,太小会降低种群的多样性;趋向性步长$C$太大时,优化值易陷入局部极值;当太小时,算法的计算复杂度会大幅度增加,不利于算法收敛;引力参数$d_{att}$和$\omega_{att}$大小决定算法的群聚性，如果值较大会导致不按照自己的信息搜索寻找食物而过度的向中心靠拢，反之太小会完全按照自身信息搜索食物导致群聚性能很弱，斥力参数$h_{rep},\omega_{rep}$与引力参数相反；趋向性操作因子$N_c$决定算法的寻优能力和收敛速度；趋向性参数$N_s$最大步长对算法的收敛速度有很大的影响；赋值操作因子$N_{re}$决定算法的计算复杂度和收敛速度，并且复制操作所采取的原则计算出的适应度值只与当前位置有关，导致最优解被淘汰掉容易陷入局部最优；迁移操作因子执行次数$N_{ed}$太小会使算法陷入局部最优，反之计算量和复杂度增加，迁移概率$P_{ed}$太大会使算法进入循环搜索，以至远离最优解。
+	
+}
+\frame{\frametitle{案例}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	对优化问题$\min\sum_{i=1}^nx_i^2+x_i$做测试。
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=8cm]{figure/6.png}\\
+		\caption{测试案例}\label{fig6}
+	\end{figure}
+	
+}
+
+\frame{\frametitle{仿真结果}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright
+	对算法进行10000次仿真。对如下四个标志数据：最小值、最大值、平均值、标准差等做评价。
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=8cm]{figure/7.png}\\
+		\caption{测试结果}\label{fig7}
+	\end{figure}
+	
+}
+
+\frame{\frametitle{算法应用}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright
+	在控制领域主要是控制器设计，可以用细菌觅食算法求解PID控制器参数优化问题。同样，BFA在图像处理领域中得到很好的应用，主要应用于图像分割、边缘检测、图像压缩等。亦可将细菌觅食算法应用到神经网络学习机制中，应用到负荷预测。也可通过BFA来优化模糊系统的参数，优化后的滤波器优于传统的卡尔曼滤波器。在盲信号分离也可应用BFA，在模式识别领域得到广泛探索。此外，细菌觅食算法在调度问题、股票经济预测、组合优化等问题中也有广泛应用。
+}
+\frame{\frametitle{觅食策略}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	多说站在食物链顶端的动物们，例如狮子、老虎等主要靠视觉来搜寻猎物，和靠气味觅食（大白鲨）不同，视觉不存在所谓的梯度差，看不见就是看不见，没有动物具有透视眼。所以觅食策略对于狮子老虎这样的陆地动物是很重要的。在不知道猎物位置的情况下，\textcolor{red}{布朗运动}或许是最自然的方法了。布朗运动是一个随机过程，它的步长服从\textcolor{red}{正态分布}。
+	
+	离散版的布朗运动叫做\textcolor{red}{随机游走}（Random walk）,它的步长和方向都是离散的。尽管布朗运动和随机游走是两个概念，也各自发展出了一套不同的理论，但两者的数学本质是一样的。
+}
+
+\frame{\frametitle{布朗运动轨迹}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=8cm]{figure/14.jpg}\\
+		\caption{布朗运动轨迹图}\label{fig14}
+	\end{figure}
+	现在提供一个布朗运动的轨迹图。
+}
+
+\frame{\frametitle{布朗运动}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	随机过程是一系列随机变量的集合。比如说，每丢一次硬币，便产生一个随机变量，那么一次次的丢下去，便产生一系列的随机变量$X_1,...,X_i,...$.随机变量序列集合起来，便是随机过程。
+	
+	布朗运动是悬浮在液体或气体中的微粒所作的永不停息的无规则运动。它是一种正态分布的独立增量连续随机过程。其基本性质为：布朗运动$W(t)$是期望为0，方差为$t$（时间）的正态随机变量。对于任意的$r\le s, w(t)-W(s)$独立于$W(r)$,且是期望为0方差为$t-s$的正态随机变量。
+}
+\frame{\frametitle{觅食策略}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	在物理学家眼里，布朗运动可以用\textcolor{red}{郎之万方程}（Langevin Equation。提出人保罗$\cdot$郎之万是法国物理学家，居里夫人丈夫皮埃尔$\cdot$ 居里的博士生，并且后来给皮埃尔$\cdot$居里戴了绿帽子）来描述：
+	\begin{equation}
+	m\frac{d^2x}{dt^2}=f(t)+F^{'}(t).
+	\end{equation}
+	其中$f(t)$分成两部分，一部分为阻力$-\alpha v$;一部分为随机作用力$F(t)$。 粘滞阻力仍来自介质分子对颗粒的碰撞，将颗粒看作半径为$a$的小球，在粘滞系数为$\eta$的流体中运动，则有$\alpha=6\pi\eta a$。
+	\begin{equation}
+	m\ddot{x}=-\mu \dot{x}(t)+\eta(t).
+	\end{equation}
+	其中$\eta(t)$是均值为0，方差为常数的随机过程。更确切地讲，是白噪声过程。
+}
+
+
+
+\frame{\frametitle{觅食策略}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	因此郎之万方程本质上就是考虑了\textcolor{red}{随机误差}的牛顿第二定律，这样的方程又叫做\textcolor{red}{随机微分方程}（Stochastic Differential Equation）。尽管郎之万是第一个提出随机过程的人，但作为物理学家，他更关心这些方程是否符合实际物理现象，而不关心数学上的严谨性。因此这种模型并没有立即受到数据家的重视。
+	
+	到了二十世纪中叶，日本数学家伊藤清和苏联数学家Stratonovich先后使用概率论的方法，把随机微分方程发展成严谨的数学概念。尽管如此，但两人对随机微分方程定义各有不同，这也显示了\textcolor{red}{随机性}和\textcolor{red}{确定性}的本质差异。此外，随机微分方程多用于对一些多样化现象进行建模，比如不停变动的股票价格、部分物理现象如热扰动等。
+}
+
+\frame{\frametitle{觅食策略}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	如果捕食者像无头苍蝇一样漫无目的的做布朗运动，真的能很有效的地寻到到猎物吗？在数学上可以证明，布朗运动和分子自由扩散一样，单位速度的分子在时间$t$ 内平均只有$\sqrt{t}$的位移量。捕食者若采用此种策略，可能需要踏遍千山万水才能成功了。
+	
+	那么有没有比布朗运动更高效的搜索方法呢？一组巴西物理学家于1999年提出了一个设想，认为“莱维飞行”比布朗运动有更高的搜索效率，因此自然会偏向与采用“莱维飞行”捕食的生物。为了理解什么是“莱维飞行”，我们首先需要对概率分布的重尾性有一个认识。
+}
+
+\frame{\frametitle{概率分布的轻尾性}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	前面说过，布朗运动的步长服从正态分布。正态分布是一种典型的\textcolor{red}{轻尾分布},也就是说，不太可能取得极端值的分布。
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=8cm]{figure/9.png}\\
+		\caption{正态分布图}\label{fig9}
+	\end{figure}
+	表达式：$y=\frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(x-\mu)^2}{2\sigma^2}}$。 其中$\mu$是均值，$\sigma$是标准差。当$x$增大时，函数下滑趋势可谓是猛如雪崩，因此数学家又将正态分布函数纳入速降函数空间范畴。速降函数是专门为傅里叶分析而量身定做的。
+}
+\frame{\frametitle{概率分布的重尾性}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	而在现实生活中，太多太多的事件不能用轻尾分布来描述，例如保险领域的保险金—— 事故可以看作是稀有事件，但一旦发生并通过审核，保险公司就必须大量金额，这样一来保险金的分布就很可能取到很大的值。为了描述这样容易取得极值的随机变量，我们需要引入\textcolor{red}{重尾分布}。
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=8cm,height=4cm]{figure/10.png}\\
+		\caption{重尾分布图}\label{fig10}
+	\end{figure}
+	典型特点：大头短+小尾长。“莱维飞行”的平均位移是$t^{\gamma},\gamma>\frac{1}{2}$。
+}
+\frame{\frametitle{概率分布的重尾性}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	那么，如何验证“莱维飞行”的有效性呢？一个方案就是前面提到的大肠杆菌的\textcolor{red}{趋化行为}。尽管最初的“莱维飞行”假说是针对动物而言的，但从大肠杆菌的游击战策略可以看出，该假说对微生物同样适用！这样一来，对微生物的研究也能反过来帮助人们更深入地理解动物行为，这便是微观的细胞生物学在宏观的生态学中的应用。
+}
+\frame{\frametitle{概率分布的重尾性}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	而在现实生活中，太多太多的事件不能用轻尾分布来描述，例如保险领域的保险金—— 事故可以看作是稀有事件，但一旦发生并通过审核，保险公司就必须大量金额，这样一来保险金的分布就很可能取到很大的值。为了描述这样容易取得极值的随机变量，我们需要引入\textcolor{red}{重尾分布}。
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=8cm,height=4cm]{figure/10.png}\\
+		\caption{重尾分布图}\label{fig10}
+	\end{figure}
+	典型特点：大头短+小尾长。“莱维飞行”的平均位移是$t^{\gamma},\gamma>\frac{1}{2}$。
+}
+\frame{\frametitle{莱维飞行}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	莱维飞行时服从莱维分布的随机搜索路径，是一种短距离的搜索与偶尔长距离的行走相间的行走方式，它能够解释很多自然现象，如布朗运动、随机行走等。目前莱维飞行行为已被用于优化领域，比如布谷鸟算法中就采用了莱维飞行进行位置更新。莱维飞行能增加种群多样性和扩大搜索范围，因此采用莱维飞行的智能算法更容易跳出局部最优点。
+}
+\frame{\frametitle{莱维过程}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	下面对\textcolor{red}{莱维过程}（$L\acute{e}vy$ process）做一个介绍。
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=6cm,height=5cm]{figure/11.jpg}\\
+		\caption{哈哈哈}\label{fig11}
+	\end{figure}
+	
+}
+
+\frame{\frametitle{莱维分布}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	莱维分布（Levy Distribution）是由P.Levy在19世纪30年代提出的一类分布，这种分布有两个参数：$\alpha$和$\gamma$。参数$\gamma>0$，参数$\alpha$用于控制分布的形状，且满足$0<\alpha\le2$。事实上当$\gamma=1$时，莱维分布就转换为柯西分布，而当$\gamma=2$时，莱维分布则为正态分布。莱维分布的概率密度函数为
+	\begin{equation}
+	L_{\alpha,\gamma}=\frac{1}{\pi}\int_0^{\infty}e^{-\gamma q^{\alpha}}cos(qy)dq,y\in\mathcal{R}.
+	\end{equation}
+	上述积分很难积，因此现有的莱维分布基本上使用数值方法计算。设$x,y$ 是两个独立同分布的随机变量，且均为标准正态分布，令随机变量$v$满足：
+	\begin{equation}
+	v=\frac{x}{\sqrt{y}}
+	\end{equation}
+	则随机变量$\{z_n\}_{n=1}^{+\infty}$为
+	\begin{equation}
+	z_n=\frac{1}{\alpha\sqrt{n}}\sum_{j=1}^nv_j
+	\end{equation}
+	收敛于莱维分布。
+}
+\frame{\frametitle{莱维分布}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	现在提供一个matlab例子。轨迹如下：
+	\begin{figure}
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[width=8cm]{figure/13.jpg}\\
+		\caption{Levy分布轨迹图}\label{fig13}
+	\end{figure}
+	
+}
+
+\frame{\frametitle{莱维过程}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	莱维过程$\{X(t),t\ge0\}$是一种随机过程，它满足的条件比布朗运动宽松：
+	
+	1.$X(0)$ 几乎处处为0；
+	
+	2.独立增量性；
+	
+	3.稳定增量性；
+	
+	4.样本轨道右连续。
+	
+	连续的布朗运动和离散的泊松过程都是莱维过程的特例。因此可以大胆猜测，莱维过程就是带“跳跃”的布朗运动。正是这些不连续性 的“跳跃”给予莱维过程“重尾”的特性。
+}
+
+\frame{\frametitle{莱维过程}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	\textbf{独立增量：}
+	
+	设$X(t)$是一个连续时间上的随机过程。也就是说，对于任何固定的$t\ge0$，$X(t)$是一个随机变量。过程的增量为差值$X(s)-X(t)$。独立增量意味着对于任意时间$s>t>u>v,X(s)-X(t)$与$X(u)-X(v)$相互独立。
+	
+	\textbf{稳定增量：}
+	
+	如果增量$X(s)-X(t)$的分布只依赖于时间间隔$s-t$，则称增量是稳定的。例如对于维纳过程，增量$X(s)-X(t)$服从均值为0，方差为$s-t$的正态分布。对于泊松过程，增量$X(s)-X(t)$服从指数为$s-t$的泊松分布。
+}
+
+\frame{\frametitle{莱维过程}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	\textbf{定理1}(莱维-辛钦公式)：
+	莱维过程$\{X(t),t\ge0\}$的特征函数（傅里叶变换）表达如下：
+	\begin{equation}
+	\phi_X(\theta)(t):=E[e^{i\theta X(t)}]=\exp(t(ai\theta-\frac{1}{2}\sigma^2\theta^2+\int_{\mathcal{R} \backslash \{0\}}(e^{i\theta x}-1-i\theta xI_{|x|<1})\prod(dx))).
+	\end{equation}
+	这个定理的证明比较复杂，依赖于测度论中的一系列结果。
+}
+\frame{\frametitle{莱维过程}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	\textbf{定理2}(莱维-伊藤分解)：
+	每个莱维过程$\{X(t),t\ge0\}$都可以分解为$\{S(t),t\ge0\}$,$\{Y(t),t\ge0\}$ 和$\{Z(t),t\ge0\}$三个子过程，其中：
+	
+	1.$S(t)$ 是维纳过程（就是布朗运动，莱维过程的连续部分）；
+	
+	2.$Y(t)$ 是复合泊松过程（刻画了较极端的“跳跃”现象）；
+	
+	3.$Z(t)$ 是平方可积的离散鞅（刻画了较小的“跳跃”现象）。
+}
+
+\frame{\frametitle{Basic Definition}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	随机变量(r.v.)$X\sim\mu$的特征函数是映射$\Phi:\mathbf{R}^d\to\mathbb{C}$，定义如下
+	\begin{equation}
+	\Phi(u)=\mathbb{E}(e^{iu\cdot X})=\int_{R^d}e^{iu\cdot y}\mu(dy).
+	\end{equation}
+	随机变量$X$是无限可分的，除非它的该率分布$p_x$是无限可分的，例如，$X=Y_1^{(n)}+...+Y_n^{(n)}$,其中$Y_1^{(n)},...,Y_n^{(n)}$是独立同分布。那么$X$的特征函数可以写成$\Phi_X(u)=(\Phi_{Y_1^{(n)}}(u))^n$.
+	
+	\textbf{定义1：}
+	
+	莱维可测是满足如下条件的$\mathbb{R}^d\backslash\{0\}$上的测度$v$,使得
+	\begin{equation}
+	\int(|y|^2\wedge1)v(dy)<\infty.
+	\end{equation}
+	其中$|y|^2\wedge1=\left\{\begin{array}{cc}1,&|x|>1\\
+	y^2,&|x|\le1\end{array}\right.$
+}
+
+\frame{\frametitle{Levy-Ito decomposition}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	定义函数$X:\mathbf{R}^{+}\to\mathbf{R}$是Cadlag过程，即$X$是右连续左极限存在。令$\Delta X(t)=X(t)-X(t-)$(由于左极限的存在)且定义如下泊松随机测度
+	\begin{equation}
+	N(t,A)=\sharp \{\Delta X(s)\in A:s\in[0,t]\}.
+	\end{equation}
+	那么有如下结论：
+	
+	(1)$N(1,B_{\varepsilon}^c(0))<\infty$.
+	
+	(2)$N(1,\mathbf{R}\backslash \{0\})$是可数的。
+	
+	令$A$是有下界的，i.e., $0\not\in\overline{A}$.那么$N(t,A),t\ge0$是泊松过程且强度为$\mu(A)=\mathbf{E}[N(1,A)]$.很明显有结论$\mu(A)<\infty$不管$A$ 是否有下界。所以测度$\mu$是$\sigma-$有限的。
+}
+\frame{\frametitle{Levy-Ito decomposition}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	\textbf{推论1：}
+	(1)对任意的$t>0,\omega\in\Omega,N(t,\cdot)(\omega)$在$\mathcal{B}(\mathbf{R}^d\backslash \{0\})$上是计数可测的。
+	
+	(2)对于任意的有下界的$A$,$N(t,A),t\ge0$是泊松过程且具有如下强度$\mu(A)=\mathbf{E}[N(1,A)]$.
+	
+	(3)补$\tilde{N}(t,A)=N(t,A)-t\mu(A)$是值鞅可测的。对于有下界的$A$, $\tilde{N}(t,A)$是一个鞅。
+	
+	令$f:\mathbf{R}^d\to\mathbf{R}$是波莱尔可测函数，$A$有下界，那么对任意$t>0,\omega\in\Omega$,我们定义如下关于$f$泊松积分通过一个随机有限和。
+	\begin{equation}
+	\int_{A}f(x)N(t,dx)(\omega)=\sum_{x\in A}f(x)N(t,\{x\})(\omega).
+	\end{equation}
+}
+\frame{\frametitle{Levy-Ito decomposition}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	\textbf{定理2：}令$A$有下界，则
+	
+	(1)对任意的$\int_{A}f(x)N(t,dx),t\ge0$是复合泊松过程，带有如下特征函数：
+	\begin{equation}
+	\mathbf{E}[exp\{iu\cdot\int_{A}f(x)N(t,dx)\}]=exp\{t\int_{A}(e^{iu\cdot x}-1)\mu_f(dx)\}.
+	\end{equation}
+	其中$u\in\mathbf{R}^d,\mu_f=\mu\circ f^{-1}$.
+	
+	(2)如果有$f\in L^1(A,\mu_A)$，那么有
+	\begin{equation}
+	\mathbf{E}[\int_{A}f(x)N(t,dx)]=t\int_{A}f(x)\mu(dx).
+	\end{equation}
+	
+	(3)如果有$f\in L^2(A,\mu_A)$，那么有
+	\begin{equation}
+	Var[|\int_{A}f(x)N(t,dx)|]=t\int_{A}|f(x)|^2\mu(dx).
+	\end{equation}
+}
+
+\frame{\frametitle{Levy-Ito decomposition}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	从定理2可以看出，如果$f\in L^1(A,\mu_A)$，一个泊松积分也许不一定全都有有限期望。对于此，我们定义如下补泊松积分：
+	\begin{equation}
+	\int_{A}f(x)\tilde{N}(t,dx)=\int_{A}f(x)N(t,dx)-t\int_{A}f(x)\mu(dx).
+	\end{equation}
+	则有如下结论：
+	
+	(1) $\int_{A}f(x)\tilde{N}(t,dx),t\ge0$是一个鞅。
+	
+	(2)
+	特征函数：
+	\begin{equation}
+	\mathbf{E}[exp\{iu\cdot\int_{A}f(x)\tilde{N}(t,dx)\}]=exp\{t\int_{A}(e^{iu\cdot x}-1-iu\cdot x)\mu_f(dx)\}.
+	\end{equation}
+	其中$u\in\mathbf{R}^d,\mu_f=\mu\circ f^{-1}$.
+	
+	
+	(3)如果有$f\in L^2(A,\mu_A)$，那么有
+	\begin{equation}
+	Var[|\int_{A}f(x)\tilde{N}(t,dx)|]=t\int_{A}|f(x)|^2\mu(dx).
+	\end{equation}
+}
+\frame{\frametitle{Levy-Ito decomposition}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	对于有下界的$A$和任意的$t>0$，$\int_{A}xN(t,dx)\sum_{0\le u\le t}\Delta X(u)1_A(\Delta X(u))$是集合$A$中不超过时间$t$的所有跳变值和。由于轨迹$X$ 是Cadlag,所以上述是个有限随机和。特别地，$\int_{|x|\ge1}xN(t,dx)$is所有大于1的跳变之和。也就是说是一个带有有限次扰动的复合泊松过程。相反地，也可以证明$X(t)-\int_{|x|\ge1}xN(t,dx)$带有有限次有次序动作的莱维过程。但是也许有无界扰动。所以我们可以定义
+	\begin{equation}
+	b=\mathbf{E}[X(1)-\int_{|x|\ge1}xN(1,dx)].
+	\end{equation}
+	
+}
+
+\frame{\frametitle{Levy-Ito decomposition}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	现在把关注度放在小跳变上来。引入$M(t,A)=\int_{A}f(x)\tilde{N}(t,dx)$.令$A_m=\{x:\frac{1}{m+1}<|x|\le1\}$.可以证明在$L^2$里，当$m\to\infty$ 时，我们有$M(t,A_m)\to\int_{|x|<1}x\tilde{N}(t,dx)$。所以$\int_{|x|<1}x\tilde{N}(t,dx)$是一个鞅。取极限得
+	\begin{equation}
+	\mathbf{E}[exp\{iu\cdot\int_{A}x\tilde{N}(t,dx)\}]=exp\{t\int_{A}(e^{iu\cdot x}-1-iu\cdot x)\mu(dx)\}.
+	\end{equation}
+	最后考虑如下随机过程
+	\begin{equation}
+	W_{A}(t)=X(t)-bt-\int_{|x|<1}x\tilde{N}(t,dx)-\int_{|x|\ge1}xN(t,dx).
+	\end{equation}
+	那么随机过程$W_A(t)$是带有连续采样路径的中心鞅。利用布朗运动的莱维特征化，我们有$W_A(t)$就是协方差为$A$的布朗运动。
+}
+
+\frame{\frametitle{Levy-Ito decomposition}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	\textbf{Levy-Ito Decomposition}$X$是莱维过程。那么存在$b\in\mathbf{R}^d$, 协方差为$A$的布朗运动$W_A(t)$,$\mathbf{R}^{+}\times\{\mathbf{R}^d\backslash \{0\}\}$ 独立的泊松随机测度$N$使得下式成立：
+	\begin{equation}
+	X(t)=bt+W_{A}(t)+\int_{|x|<1}x\tilde{N}(t,dx)+\int_{|x|\ge1}xN(t,dx).
+	\end{equation}
+	其中平方可积鞅($L^2$-鞅)$\int_{|x|<1}x\tilde{N}(t,dx)$是所有小跳变的补和。上述跳变是以1为界的，可以推广至任意实数$R>0$，我们有
+	\begin{equation}
+	X(t)=b_Rt+W_{A}(t)+\int_{|x|<R}x\tilde{N}(t,dx)+\int_{|x|\ge R}xN(t,dx).
+	\end{equation}
+	其中$b_R=\mathbf{E}[X(1)-\int_{|x|\ge R}xN(1,dx)]$.可以计算如下：
+	
+	(1)如果$1<R<\infty$,有$b_R=b+\int_{1\le|x|x<R}x\mu(dx).$
+	
+	(2)如果$0<R<1$,有$b_R=b-\int_{R\le|x|x<1}x\mu(dx).$
+}
+
+\frame{\frametitle{Levy-Ito decomposition}
+	\parindent=19pt	
+	\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+	\raggedright	
+	是否可以去除上届约束$R$呢？此时我们有
+	\begin{equation}
+	X(t)=b_{\infty}t+W_{A}(t)+\int_{|x|\ge 0}x\tilde{N}(t,dx).
+	\end{equation}
+	结论是可以的，如果我们有$\mathbf{E}[X(1)]<\infty$。此时，我们有$b_{\infty}=\textbf{E}[X(1)]<\infty$.
+}
+
+%\frame{\frametitle{布朗运动}
+%\parindent=19pt	
+%\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+%\raggedright	
+%最初由英国生物学家布朗(Brown)于1827年提出这种物理现象。1905年爱因斯坦首次对这一现象的物理规律给出数学描述。1918年维纳(Wiener)运用数学理论严格描述这种无规则运动。并用随机过程理论和概率理论建立了数学模型。因此又称为维纳过程。是具有\textcolor{red}{连续时间参数}和\textcolor{red}{连续状态空间}的一类随机过程。
+%
+%\textbf{定义：}若随机过程$\{X(t),t\ge0\}$满足：
+%
+%(1)$X(t)$关于$t$是连续函数；且几乎 处处不可微。
+%
+%(2)$\{X(t),t\ge0\}$具有平稳独立增量:对任意的有限正数$0=t_0<t_1<\cdots<t_n$，随机变量$X(t_0),X(t_1)-X(t_0),...,X(t_n)-X(t_{n-1})$相互独立。
+%
+%(3)$\forall s,t>0,\text{ s.t. } X(s+t)-X(s)\sim N(0,\sigma^2t)$
+%
+%则称随机过程$\{X(t),t\ge0\}$为布朗运动（或维纳过程）。当$\sigma=1$时，称随机过程$\{X(t),t\ge0\}$为标准布朗运动。记为$\{B(t),t\ge0\}$。\textcolor{red}{几何布朗运动}是连续时间情况下的随机过程，其中随机变量的对数遵循布朗运动。其在金融学中有所应用。
+%}
+%
+%\frame{\frametitle{布朗运动}
+%\parindent=19pt	
+%\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+%\raggedright	
+%布朗运动连续性如下仿真效果：
+%\begin{figure}
+%  \centering
+%  % Requires \usepackage{graphicx}
+%  \includegraphics[width=8cm]{5/figure/15.jpg}\\
+%  \caption{}\label{fig15}
+%\end{figure}
+%
+%}
+%
+%\frame{\frametitle{布朗运动}
+%\parindent=19pt	
+%\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+%\raggedright	
+%\textbf{定义：}概率空间$(\Omega,\mathcal{F},\mathbb{P})$上的随机过程$\{X(t),t\ge0\}$称为高斯过程，若对任意的$n\ge1,t_1,t+2,...,t_n,(X(t_1),...,X(t_n))$服从高斯分布。
+%
+%\textbf{定理：}设$B=\{B(t),t\ge0\}$是零初值的实值随机过程。则它是布朗运动的充要条件是它是一个高斯过程，并且$\mathbb{E}(B(t))=0,\mathbb{E}(B(t)B(s))=t\wedge s=\min(s,t).$
+%
+%\textbf{证明：}必要性。由独立增量性$n\ge1,t_1,t+2,...,t_n,(X(t_1),...,X(t_n))$服从高斯分布。又因为
+%\begin{equation}
+%\left(\begin{array}{c}B(t_1)\\
+%                      B(t_2)\\
+%                      \vdots\\
+%                      B(t_n)\end{array}\right)=\left(\begin{array}{ccccc}1&0&0&\cdots&0\\
+%                      1&1&0&\cdots&0\\
+%                      \vdots&\vdots&\vdots&\ddots&\vdots\\
+%                      1&1&1&\cdots&1\end{array}\right)\left(\begin{array}{c}B(t_1)\\
+%                      B(t_2)-B(t_1)\\
+%                      \vdots\\
+%                      B(t_n)-B(t_{n-1})\end{array}\right)
+%\end{equation}
+%}
+%
+%\frame{\frametitle{布朗运动}
+%\parindent=19pt	
+%\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+%\raggedright	
+% 所以有$(B(t_1),...,B(t_n))$服从高斯分布。显然有$\mathbb{E}(B(t))=0,$对任意$t\ge s\ge0$,有
+% \begin{equation}
+% \mathbb{E}(B(t)B(s))=E(B(t)-B(s))B(s)+\mathbb{E}B^2(s)=s.
+% \end{equation}
+%
+%充分性。先证独立增量性。由于它们服从正态分布，所以只需要证明不相关性即可。事实上，对任意的$i<j$，有
+%\begin{equation}
+%\begin{split}
+%\mathbb{E}(B(t_i)-B(t_{i-1}))(B(t_j)-B(t_{j-1}))=&\mathbb{E}B(t_i)B(t_j)-\mathbb{E}B(t_{i-1})B(t_j)\\
+%                                                 &+\mathbb{E}B(t_{i-1})B(t_{j-1})\\
+%                                                 &=t_i-t_i-t_{i-1}+t_{i-1}=0.
+%\end{split}
+%\end{equation}
+%显然，对任意的$t>s,B(t)-B(s)$服从正态分布，均值为0，方差为
+%\begin{equation}
+%\mathbb{E}(B(t)-B(s))^2=\mathbb{E}B^2(t)-2\mathbb{E}B(t)B(s)+\mathbb{E}B^2(s)=t-s.
+%\end{equation}
+%}
+%
+%\frame{\frametitle{布朗运动的构造}
+%\parindent=19pt	
+%\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+%\raggedright	
+%下面利用Fourier级数直接构造布朗运动。 假设$B$是一个标准布朗运动。定义过程$W(t)=B(t)-tB(1),t\in[0,1]$.称为$[0,1]$上的布朗桥。注意到$W(0)=W(1)=0$.我们将$W$在$[0,1]$上的Fourier展开($L^2$ 意义下)
+% \begin{equation}
+% W(t)=\sum_{n=1}^{\infty}X_nsin(n\pi t)
+% \end{equation}
+% 其中系数$X_n$是随机变量，表达式为
+% \begin{equation}
+% X_n=2\int_0^tW(t)sin(n\pi t)dt.
+% \end{equation}
+% 则$X_n$服从正态分布，可以计算
+% \begin{equation}
+% \mathbb{E}X_n=0,\mathbb{E}[X_nX_m]=\frac{2}{\pi^2n^2}\delta_{mn}.
+% \end{equation}
+% 令$Z_0=B_1,Z_n=n\pi X_n/\sqrt{2},n\ge1.$ 则$\{Z_n\}$ i.i.d~$N(0,1)$。我们可以将布朗运动写成
+% \begin{equation}
+% B(t)=tZ_0+\frac{\sqrt{2}}{\pi}\sum_{j=1}^{\infty}\frac{Z_n}{n}sin(n\pi t),t\in[0,1].
+% \end{equation}
+%}
+%
+%\frame{\frametitle{布朗运动的逼近}
+%\parindent=19pt	
+%\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+%\raggedright	
+%三种逼近方式：
+%
+%(1)基于随机游动的逼近；
+%
+%(2)布朗运动的帕里-维纳表示；
+%
+%(3)基于小波函数的逼近方法。
+%}
+%\frame{\frametitle{随机漫步}
+%\parindent=19pt	
+%\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+%\raggedright	
+%假想一个粒子在水平直线上一步步的左右移动而且每步的距离皆为一个单位长度。其向右及向左的概率各位$p$与$q=1-p(0<p<q)$。假设每一单位时间只移动一步而且在第$n$个瞬间独立做动作。其数学模型如下：
+%
+%设$X_n$为粒子第$n$的位移，则$X_n:\in\mathbf{N}$为一族取值为$\{+1,-1\}$的独立随机数，而且对任一整数，我们有
+%\begin{equation}
+%\begin{split}
+%&P\{X_n=1\}=p\\
+%&P\{X_n=-1\}=q
+%\end{split}
+%\end{equation}
+%若以$W_0$表示粒子的原始位置，则在时间$n$时粒子的位置为
+%\begin{equation}
+%W_n=W_0+X_1+X_2+\cdots+X_n
+%\end{equation}
+%序列$\{W_n,n=0,1,2,...\}$便叫做随机漫步或者随机游走。$\{W_n\}$所在的样本空间$\Omega$可取为
+%\begin{equation}
+%\Omega=\{\omega:\omega=(\omega_0,\omega_1,...),\omega_i\in\mathbf{Z}\}.
+%\end{equation}
+%
+%}
+%
+%\frame{\frametitle{随机漫步}
+%\parindent=19pt	
+%\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+%\raggedright	
+%令$P_n^r(i,j)=P\{W_{n+r}=j|W_n=i\},P_n(i,j)=P_n^1(i,j),p_{ij}=P_0(i,j),p_{ij}^r=P_0^r(i,j).$ 显然，当$i=j$时$p_{ij}^0=1,$ 否则$p_{ij}^0=0$.
+%
+%\textbf{定理：}
+%1.$0\le P_n^r(i,j)\le1$,而且$\sum_{j\in\mathbf{Z}}P_n^r(i,j)=1$.
+%
+%2.$P\{W_{n+r}=j|W_0=i_0,...,w_n=i_n\}=P\{W_{n+r}=j|W_n=i_n\}=P_n^r(i_n,j),\forall r\ge1.$
+%
+%3.$P_n^r(i,j)=P_0^r(i,j)=p_{ij}^r$，特别地
+%\begin{equation}
+%P\{W_{n+r}=j|W_n=i\}=p_{ij}=\left\{\begin{array}{cc}p,&j=i+1\\
+%                                                    q,&j=i-1\\
+%                                                    0,&j=i
+%                                                    \end{array}\right.
+%\end{equation}
+%4.设$0\le n_1<n_2<n_3<\cdots<n_k,$则$\{W_{n_k}-W_{n_{k-1}},....,W_{n_2}-W_{n_1}\}$为独立随机变量。
+%}
+%
+%
+%\frame{\frametitle{随机漫步}
+%\parindent=19pt	
+%\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+%\raggedright	
+%上述性质2说明当现在位置已知时，过去与未来无关。性质3表示粒子位置从$i$转移到$j$的概率与原位置时间无关，此性质叫做时间齐一性（马尔科夫性质）。则其转移矩阵记为
+%\begin{figure}
+%  \centering
+%  % Requires \usepackage{graphicx}
+%  \includegraphics[width=8cm]{5/figure/16.png}\\
+%  \caption{}\label{fgi16}
+%\end{figure}
+%
+%}
+%
+%\frame{\frametitle{随机漫步}
+%\parindent=19pt	
+%\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+%\raggedright	
+%令$\mathbf{A}\subseteq\mathbf{Z}$。定义$f_{\mathbf{A}}(i)=P\{W_k\in\mathbf{A},\forall  k\ge1|W_0=i\}(i\in\mathbf{A})$。$f_{\mathbf{A}}(i)$表示$\{W_n\}$从$i$出发一直留在$\mathbf{A}$中的概率。
+%
+%\textbf{定理：}若$\mathbf{A}$只包含有限个整数，则$f_{\mathbf{A}}(i)=0,\forall i\in\mathbf{A}$.
+%
+%上述定理表明随机漫步的粒子非常不安于位。一直在做无规则运动。
+%
+%\textbf{定理:}$\mathbf{E}[W_{n+k}|W_n=i]=i$.（此处讨论$p=q$的性质。）
+%}
+
 %
 %%%%%%
 %%%%%%
