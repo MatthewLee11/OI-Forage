@@ -281,73 +281,9 @@ m\ddot{x}=-\mu \dot{x}(t)+\eta(t).
 \raggedright	
 如果捕食者像无头苍蝇一样漫无目的的做布朗运动，真的能很有效的地寻到到猎物吗？在数学上可以证明，布朗运动和分子自由扩散一样，单位速度的分子在时间$t$ 内平均只有$\sqrt{t}$的位移量。捕食者若采用此种策略，可能需要踏遍千山万水才能成功了。
 
-那么有没有比布朗运动更高效的搜索方法呢？一组巴西物理学家于1999年提出了一个设想，认为“莱维飞行”比布朗运动有更高的搜索效率，因此自然会偏向与采用“莱维飞行”捕食的生物。为了理解什么是“莱维飞行”，我们首先需要对概率分布的重尾性有一个认识。
+那么有没有比布朗运动更高效的搜索方法呢？一组巴西物理学家于1999年提出了一个设想，认为“莱维飞行”比布朗运动有更高的搜索效率，因此自然会偏向与采用“莱维飞行”捕食的生物。 
 }
-
-\frame{\frametitle{概率分布的轻尾性}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright	
-前面说过，布朗运动的步长服从正态分布。正态分布是一种典型的\textcolor{red}{轻尾分布},也就是说，不太可能取得极端值的分布。
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[width=8cm]{5/figure/9.png}\\
-  \caption{正态分布图}\label{fig9}
-\end{figure}
-表达式：$y=\frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(x-\mu)^2}{2\sigma^2}}$。 其中$\mu$是均值，$\sigma$是标准差。当$x$增大时，函数下滑趋势可谓是猛如雪崩，因此数学家又将正态分布函数纳入速降函数空间范畴。速降函数是专门为傅里叶分析而量身定做的。
-}
-\frame{\frametitle{概率分布的重尾性}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright	
-而在现实生活中，太多太多的事件不能用轻尾分布来描述，例如保险领域的保险金—— 事故可以看作是稀有事件，但一旦发生并通过审核，保险公司就必须大量金额，这样一来保险金的分布就很可能取到很大的值。为了描述这样容易取得极值的随机变量，我们需要引入\textcolor{red}{重尾分布}。
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[width=8cm,height=4cm]{5/figure/10.png}\\
-  \caption{重尾分布图}\label{fig10}
-\end{figure}
- 典型特点：大头短+小尾长。“莱维飞行”的平均位移是$t^{\gamma},\gamma>\frac{1}{2}$。
-}
-\frame{\frametitle{概率分布的重尾性}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright	
-那么，如何验证“莱维飞行”的有效性呢？一个方案就是前面提到的大肠杆菌的\textcolor{red}{趋化行为}。尽管最初的“莱维飞行”假说是针对动物而言的，但从大肠杆菌的游击战策略可以看出，该假说对微生物同样适用！这样一来，对微生物的研究也能反过来帮助人们更深入地理解动物行为，这便是微观的细胞生物学在宏观的生态学中的应用。
-}
-\frame{\frametitle{概率分布的重尾性}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright	
-而在现实生活中，太多太多的事件不能用轻尾分布来描述，例如保险领域的保险金—— 事故可以看作是稀有事件，但一旦发生并通过审核，保险公司就必须大量金额，这样一来保险金的分布就很可能取到很大的值。为了描述这样容易取得极值的随机变量，我们需要引入\textcolor{red}{重尾分布}。
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[width=8cm,height=4cm]{5/figure/10.png}\\
-  \caption{重尾分布图}\label{fig10}
-\end{figure}
- 典型特点：大头短+小尾长。“莱维飞行”的平均位移是$t^{\gamma},\gamma>\frac{1}{2}$。
-}
-\frame{\frametitle{莱维飞行}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright	
-莱维飞行时服从莱维分布的随机搜索路径，是一种短距离的搜索与偶尔长距离的行走相间的行走方式，它能够解释很多自然现象，如布朗运动、随机行走等。目前莱维飞行行为已被用于优化领域，比如布谷鸟算法中就采用了莱维飞行进行位置更新。莱维飞行能增加种群多样性和扩大搜索范围，因此采用莱维飞行的智能算法更容易跳出局部最优点。
-}
-\frame{\frametitle{莱维过程}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright	
-下面对\textcolor{red}{莱维过程}（$L\acute{e}vy$ process）做一个介绍。
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[width=6cm,height=5cm]{5/figure/11.jpg}\\
-  \caption{哈哈哈}\label{fig11}
-\end{figure}
-
-}
+ 
 
 \frame{\frametitle{莱维分布}
 \parindent=19pt	
