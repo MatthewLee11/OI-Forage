@@ -15,12 +15,16 @@
 \usepackage{float}
 \usepackage{xspace}
 \usepackage{appendixnumberbeamer}
-%\usetheme{Madrid}
+\usepackage{fontspec}
+\usecolortheme{beaver}
+\newcommand{\tnewroman}{\fontspec{Helvetica}}
 
 \begin{document}
 
 \begin{frame}
 	\title{觅食算法}
+	\author{李昱辰\ 张恒\ 时侠圣\ 李崇慧\ 刘子旋\ 潘镇涛\ 朱春林\ 谷超明}
+	\date{2018年4月19日}
 	\titlepage
 \end{frame}
 
@@ -114,8 +118,8 @@
 		\begin{figure}
 			\centering
 			% Requires \usepackage{graphicx}
-			\includegraphics[width=8cm]{images/15.jpg}\\
-			\caption{}\label{fig15}
+			\includegraphics[width=8cm]{images_1/15.jpg}\\
+			%\caption{}\label{fig15}
 		\end{figure}
 		
 	}
@@ -209,7 +213,7 @@
 		\begin{figure}
 			\centering
 			% Requires \usepackage{graphicx}
-			\includegraphics[width=8cm]{images/17.png}\\
+			\includegraphics[width=8cm]{images_1/17.png}\\
 			\caption{}\label{fig15}
 		\end{figure}
 		
@@ -314,6 +318,115 @@
 		\end{itemize}
 	}
 	
+%3
+\section{Heavy-tailed Distribution And Light-tailed Distribution}	
+
+	\frame{
+	\begin{center}
+{\tnewroman \textbf{\Huge{Heavy-tailed Distribution And Light-tailed Distribution}}}
+	\end{center}	
+}
+\begin{frame}
+
+\frametitle{承前启后}
+\qquad 如果捕食者像无头苍蝇一样漫无目的的做布朗运动，真的能很有效的地寻到到猎物吗？在数学上可以证明，布朗运动和分子自由扩散一样，单位速度的分子在时间$t$内平均只有$\sqrt{t}$的位移量。若捕食者采用这种策略，需要很久才能够成功。
+
+\qquad 那么有没有比布朗运动更高效的搜索方法呢？一组巴西物理学家于$1999$年提出了一个设想，认为“莱维飞行”比布朗运动有更高的搜索效率，因此自然会偏向与采用“莱维飞行”捕食的生物。为了理解什么是“莱维飞行”，我们首先需要对概率分布的轻尾性和重尾性有一个认识。
+%\tableofcontents
+
+\end{frame}
+	
+\begin{frame}
+\frametitle{指数分布}
+指数分布是描述泊松过程中的事件之间的时间的概率分布，即事件以恒定平均速率连续且独立地发生地过程。它是几何分布的
+连续模拟，它具有无记忆的关键性质。例如，如果T是某一元件的寿命，已知元件使用了$t$小时，它总共使用至少$s+t$小时的条件概率与一开始使用时算起它使用至少s小时的概率相等。
+
+其概率密度函数：
+
+\begin{displaymath}
+F\left ( x;\lambda  \right )= \left\{\begin{matrix}
+1-e^{-\lambda x}, &x\geq 0  \\
+0, &x< 0
+\end{matrix}\right.
+\end{displaymath}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{轻尾分布}
+\qquad 比指数分布尾部更薄的概率分布是轻尾分布。 它们下降到$0$的速度比指数分布的速度快得多，因此在尾部质量更小。 Gumbel 分布是轻尾分布的一个例子。轻尾分布并不能很好地反映“真实世界”的数据。
+
+
+
+\centering\includegraphics[scale=0.5]{image/light-tailed.png}
+
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{概率分布的轻尾性}
+\qquad 前面说过，布朗运动的步长服从正态分布。正态分布是一种典型的{\color{red}{轻尾分布}}, 也就是说，不太可能取得极端值的分布。
+
+\begin{figure}
+	\centering\includegraphics[scale=0.35]{image/normal_distribution.png}
+\end{figure}
+
+表达式$y= \frac{1}{\sqrt{2\pi}\sigma}e^{\frac{-\left ( x-\mu  \right )^{2}}{2\sigma ^{2}}}$。其中$\mu$是均值，$\sigma$是标准差。当$x$增大
+时，函数下滑趋势非常快，因此数学家又将正态分布函数纳入速降函数空间范畴。速降函数是专门为傅里叶分析而量身定做的。
+%\begin{definition}
+%    definition 1...
+%\end{definition}
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{概率分布的重尾性}
+\qquad 而在现实生活中，大多数的事情不能用轻尾分布来描述，例如保险领域的保险金-事故可以看作是稀有事件，但一旦发生并通过审核，保险公司就必须大量金额，这样一来保险金的分布就很可能取到很大的值。为了描述这样容易取得极值的随机变量，我们需要引入重尾分布。
+
+\centering\includegraphics[scale=0.5]{image/heavy_tailed.png}
+
+典型特点: 大头短$+$小尾长。“莱维飞行”的平均位移是$t^{\gamma}$,$\gamma>\frac{1}{2}$.
+\end{frame}
+\begin{frame}
+\frametitle{重尾分布}
+当$x\rightarrow \infty$时,重尾分布下降到$0$的速度慢于指数分布。因而尾部质量较大。其数学定义为:
+
+\begin{displaymath}
+\lim_{x\rightarrow \infty }e^{\lambda x}F\left ( x \right )=\infty
+\end{displaymath}
+
+其中，$\lambda>0$, $F(x)$是尾分布函数。
+
+重尾分布更适用于对那些离峰值较远的稀有事件也会有相当的概率发生的情况。重尾分布作为一个大的类别，还包含三个重要的子类别，分别是肥尾分布（Fat-tailed distribution），长尾分布（Long-tailed distribution）和次指数分布（Subexponential distribution）
+\end{frame}
+
+\begin{frame}
+
+\frametitle{概率分布的重尾性}
+\qquad 那么，如何验证“莱维飞行”的有效性呢？一个方案就是前面提到的大肠杆菌的{\color{red}{趋化行为}}。尽管最初的“莱维飞行”假说是针对动物
+而言的，但从大肠杆菌的游击战策略可以看出，该假说对微生物同样适用！这样一来，对微生物的研究也能反过来帮助人们更深入地理解动物行为，这便是微观的细胞生物学在宏观的生态学中的应用。
+
+\end{frame}
+
+\begin{frame}
+\frametitle{莱维过程}
+\qquad 莱维过程$\left \{ X\left ( t \right ),t\geq 0 \right \}$是一种随机过程，它满足的条件比布朗运动宽松:
+\begin{itemize}
+\item $X{0}$ 几乎处处为0;
+\item 独立增量性;
+\item 稳定增量性;
+\item 样本轨道右连续.
+\end{itemize}
+
+
+\qquad 连续的布朗运动和离散的泊松过程都是莱维过程的特例。因此可以大胆猜测，莱维过程就是带“跳跃”的布朗运动。正是这些不连续
+性的“跳跃”给予莱维过程“重尾”的特性。
+\end{frame}	
+	
+	
+	
 %Levy 4
 \section{莱维过程}
 	\frame{
@@ -403,7 +516,7 @@ N为possion过程，对于$\theta \in R $,特征函数为\[E(e^{i\theta\sum_{i=1
 	\begin{figure}[H]
 		\centering
 		% Requires \usepackage{graphicx}
-		\includegraphics[width=8cm]{figure/1.png}\\
+		\includegraphics[width=6cm]{figure/1.png}\\
 		\caption{群体智能}\label{fig1}
 	\end{figure}
 	
@@ -444,7 +557,7 @@ N为possion过程，对于$\theta \in R $,特征函数为\[E(e^{i\theta\sum_{i=1
 	\begin{figure}
 		\centering
 		% Requires \usepackage{graphicx}
-		\includegraphics[width=8cm]{figure/8.png}\\
+		\includegraphics[width=6cm]{figure/8.png}\\
 		\caption{应用示意图}\label{fig8}
 	\end{figure}
 	
@@ -458,7 +571,7 @@ N为possion过程，对于$\theta \in R $,特征函数为\[E(e^{i\theta\sum_{i=1
 	\begin{figure}
 		\centering
 		% Requires \usepackage{graphicx}
-		\includegraphics[width=5cm]{figure/4.png}\\
+		\includegraphics[width=4cm]{figure/4.png}\\
 		\caption{大肠杆菌搜索食物流程图}\label{fig4}
 	\end{figure}
 	
@@ -1431,8 +1544,8 @@ $$p(t_k,x_k|t_{k-1},x_{k-1};\theta) = \frac{1}{\sqrt{2\pi\sigma_k}}exp(-\frac{(x
 	\centerline{\textbf{\Huge{觅食算法实例}}}
 }
 \begin{frame}
-\frametitle{觅食算法实例}
-\framesubtitle{概览}
+\frametitle{概览}
+%\framesubtitle{}
 \begin{itemize}
 \item 资源分配和调度
 \item 信号处理
@@ -1442,8 +1555,8 @@ $$p(t_k,x_k|t_{k-1},x_{k-1};\theta) = \frac{1}{\sqrt{2\pi\sigma_k}}exp(-\frac{(x
 \end{frame}
 
 \begin{frame}
-\frametitle{觅食算法实例}
-\framesubtitle{资源分配和调度}
+%\frametitle{觅食算法实例}
+\frametitle{资源分配和调度}
 \begin{itemize}
 \item 对计算机中的多区域温度调度平台(\textit{Multizone Temperature Experimentation Platform})进行资源分配，以低温区域为“食物”，细菌的觅食过程就是将数据的获取与计算工作分配至低温区域以获得更高的能效
 \item 车间作业中利用觅食算法进行空闲时间片段的调度，将未完成的工序合理地分配到不同的空闲时间中。在工序顺序和机器占用的约束下，有效降低调度的规模和复杂性
@@ -1451,14 +1564,14 @@ $$p(t_k,x_k|t_{k-1},x_{k-1};\theta) = \frac{1}{\sqrt{2\pi\sigma_k}}exp(-\frac{(x
 \end{frame}
 
 \begin{frame}
-\frametitle{觅食算法实例}
-\framesubtitle{信号处理}
+%\frametitle{觅食算法实例}
+\frametitle{信号处理}
 独立组分分析(ICA)用来对统计信号进行处理，找到非高斯分布数据的线性表示。利用觅食算法与ICA的结合，可以提高信号处理的收敛速度，降低均方误差
 \end{frame}
 
 \begin{frame}
-\frametitle{觅食算法实例}
-\framesubtitle{预测控制}
+%\frametitle{觅食算法实例}
+\frametitle{预测控制}
 \begin{itemize}
 \item 利用觅食算法对股票市场指数趋势进行预测
 \item 利用觅食算法对控制系统进行局部优化
@@ -1466,8 +1579,8 @@ $$p(t_k,x_k|t_{k-1},x_{k-1};\theta) = \frac{1}{\sqrt{2\pi\sigma_k}}exp(-\frac{(x
 \end{frame}
 
 \begin{frame}
-\frametitle{觅食算法实例}
-\framesubtitle{图形图像}
+%\frametitle{觅食算法实例}
+\frametitle{图形图像}
 利用细菌觅食算法，在图像识别中，提高识别的速度与准确率。通常会与基因算法等其他算法进行结合，在面部识别等领域提高特征点的搜索速度。
 \end{frame}
 
