@@ -6,7 +6,7 @@
 \parindent=19pt	
 \renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
 \raggedright
-细菌觅食算法(BFA)由K. M. Passino于2002年基于Ecoli大肠杆菌在人体肠道内吞噬食物的行为，提出一种新型仿真算法，该算法属于随机搜索算法。该算法因具有群体智能算法并行搜索、易于跳出局部极小值、对初值和参数选择要求低、鲁棒性好、全局搜索等优点，成为生物启发式计算研究领域的又一热点。
+细菌觅食算法(BFA)由K. M. Passino于2002年基于Ecoli大肠杆菌在人体肠道内吞噬食物的行为，提出一种新型随机搜索算法。该算法因具有群体智能算法并行搜索、易于跳出局部极小值、对初值和参数选择要求低、鲁棒性好、全局搜索等优点，成为生物启发式计算研究领域的又一热点。
 \begin{figure}[H]
   \centering
   % Requires \usepackage{graphicx}
@@ -96,17 +96,17 @@
 \parindent=19pt	
 \renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
 \raggedright
-其觅食特点依靠鞭毛的旋转方向，逆时针，快速前进；顺时针，则停留原地。相应的数学模型解释就是当计算出两个点位置的函数的适应度值，通过比较结果决定大肠杆菌是继续前进还是寻找随机方向移动，当尝试次数达到最大限制数时选择下一个大肠杆菌进行趋向性操作。其数学表达式为
+其觅食特点依靠鞭毛的旋转方向，逆时针，快速前进；顺时针，则停留原地。相应的数学模型解释就是计算出两个点位置的函数的适应度值，通过比较结果决定大肠杆菌是继续前进还是寻找随机方向移动，当尝试次数达到最大限制数时选择下一个大肠杆菌进行趋向性操作。其数学表达式为
 \begin{equation}
 \theta^{'}(j+1,k,l)=\theta^{'}(j,k,l)+C(i)\frac{\Delta(i)}{\sqrt{\Delta(i)^T\Delta(i)}}
 \end{equation}
-其中$\theta^{'}(j,k,l)$表示大肠杆菌$i$在第$j$次趋向第$k$次复制第$l$次迁移操作之后所在的位置，$C(i)$为趋向步长，$\frac{\Delta(i)}{\sqrt{\Delta(i)^T\Delta(i)}}$为移动的一个随机前进方向。
+其中$\theta^{'}(j,k,l)$表示大肠杆菌$i$在第$j$次趋向第$k$次复制第$l$ 次迁移操作之后所在的位置，$C(i)$为趋向步长，$\frac{\Delta(i)}{\sqrt{\Delta(i)^T\Delta(i)}}$为移动的一个随机前进方向。
 }
 \frame{\frametitle{算法基本原理}
 \parindent=19pt	
 \renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
 \raggedright
-自然界生物进化的准则是优胜劣汰，因此性能差的细菌会被淘汰。在BFA模型中,$J(i,j,k,l)$表示细菌$i$在第$j$次趋向第$k$次复制第$l$次迁移操作之后的适应值。$J_{health}^i$ 是细菌$i$的能量函数，其大小决定细菌觅食能力的强弱。将觅食后的细菌的能量函数进行大小排序，淘汰掉$\frac{S}{2}$个能量值较小的细菌，将剩下的进行赋值操作，新生成的复制细菌与原细菌具有相同的觅食能力。
+自然界生物进化的准则是优胜劣汰，因此性能差的细菌会被淘汰。在BFA模型中,$J(i,j,k,l)$表示细菌$i$在第$j$次趋向第$k$次复制第$l$次迁移操作之后的适应值。$J_{health}^i$ 是细菌$i$的能量函数，其大小决定细菌觅食能力的强弱。将觅食后的细菌的能量函数进行大小排序，淘汰掉$\frac{S}{2}$个能量值较小的细菌，将剩下的进行复制操作，新生成的复制细菌与原细菌具有相同的觅食能力。
 
 }
 \frame{\frametitle{算法基本原理}
@@ -148,13 +148,13 @@ Step4:趋向性循环操作；
 
 (1)细菌$i$进行趋向性一步；
 
-(2)计算$J(i,j,kl)$,储存最优值$J_{best}$；
+(2)计算$J(i,j,k,l)$,储存最优值$J_{best}$；
 
 (3)随机生成向量$\Delta(i)$，细菌按照步长$C(i)$进行移动；
 
 (4)计算此时的适应度值$J(i,j+1,k,l)$;
 
-(5)旋转判定条件：若$m<N_s,m=m+1$,若$J(i,j+1,k,l)<J_{best}$，则$J_{best}=J(imj+1,k,l)$,此时$\theta^i(j+1,k,l)=\theta^i(j,k,l+C(i)\frac{\Delta(i)}{\sqrt{\Delta(i)^T\Delta(i)}}$. 根据细菌的信息量$\theta^i(j+1,k,l)$计算新的$J(j+1,k,l)$否则$m=N_s$.
+(5)旋转判定条件：若$m<N_s,m=m+1$,若$J(i,j+1,k,l)<J_{best}$，则$J_{best}=J_m^i(j+1,k,l)$,此时$\theta^i(j+1,k,l)=\theta^i(j,k,l)+C(i)\frac{\Delta(i)}{\sqrt{\Delta(i)^T\Delta(i)}}$. 根据细菌的信息量$\theta^i(j+1,k,l)$计算新的$J(i,j+1,k,l)$否则$m=N_s$.
 
 (6)重新处理下一个细菌。
 
@@ -173,7 +173,7 @@ Step6:复制，淘汰$\frac{S}{2}$个能量值小的细菌，对剩下的$\frac{
 
 Step7:若$k<N_{re}$，返回Step3.
 
-Step8:迁移，达到一定条件后细菌以概率$P_{ed}$重新觅食。若$l<N_d$，则返回Step2，否则寻优结束。
+Step8:迁移，达到一定条件后细菌以概率$P_{ed}$重新觅食。若$l<N_{ed}$，则返回Step2，否则寻优结束。
 
 Step9:循环结束条件判断，条件满足则结束，输出结果。
 }
@@ -240,7 +240,7 @@ Step9:循环结束条件判断，条件满足则结束，输出结果。
 \end{figure}
 现在提供一个布朗运动的轨迹图。
 }
- 
+
 \frame{\frametitle{觅食策略}
 \parindent=19pt	
 \renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
@@ -376,7 +376,7 @@ m\ddot{x}=-\mu \dot{x}(t)+\eta(t).
 
  \textbf{定义1：}
 
- 莱维可测是满足如下条件的$\mathbb{R}^d\backslash\{0\}$上的测度$v$,使得
+ 莱维可测是满足如下条件的$\mathbb{R}^d\backslash\{0\}$上的测度$v$, 使得
  \begin{equation}
  \int(|y|^2\wedge1)v(dy)<\infty.
  \end{equation}
@@ -534,7 +534,7 @@ X(t)=b_{\infty}t+W_{A}(t)+\int_{|x|\ge 0}x\tilde{N}(t,dx).
 %
 %(3)$\forall s,t>0,\text{ s.t. } X(s+t)-X(s)\sim N(0,\sigma^2t)$
 %
-%则称随机过程$\{X(t),t\ge0\}$为布朗运动（或维纳过程）。当$\sigma=1$时，称随机过程$\{X(t),t\ge0\}$为标准布朗运动。记为$\{B(t),t\ge0\}$。\textcolor{red}{几何布朗运动}是连续时间情况下的随机过程，其中随机变量的对数遵循布朗运动。其在金融学中有所应用。
+%则称随机过程$\{X(t),t\ge0\}$为布朗运动（或维纳过程）。当$\sigma=1$ 时，称随机过程$\{X(t),t\ge0\}$为标准布朗运动。记为$\{B(t),t\ge0\}$。\textcolor{red}{几何布朗运动}是连续时间情况下的随机过程，其中随机变量的对数遵循布朗运动。其在金融学中有所应用。
 %}
 %
 %\frame{\frametitle{布朗运动}
