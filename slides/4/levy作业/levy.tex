@@ -1,0 +1,79 @@
+\documentclass{ctexart} %%%编译方式 XeLaTeX
+
+%%%%-----导入宏包-----%%%%
+\usepackage{ctex}			 %导入 ctex 宏包，添加中文支持
+\usepackage{amsmath,amsfonts,amssymb,bm}   %导入数学公式所需宏包
+\usepackage{color}			 %字体颜色支持
+\usepackage{graphicx,hyperref,url}	
+ %\usepackage{amsthm}
+\title{莱维过程}
+
+\author{朱春林(21721262)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+本文我们将简单介绍levy过程，包括levy过程的定义以及levy过程的特例，接下来我们将介绍莱维辛钦定理，最后我们将介绍莱维分解定理。
+\end{abstract}
+
+\section{莱维过程的定义}
+定义 1.1 一个随机过程 ${X=\{X_{t}:t\geq 0\}}$如果符合以下条件： 
+    1. $X_{0}=0$.
+    
+    2. 独立增量：对于任何$0\leq t_{1} < t_{2} < \dots < t_{n} < \infty ,X_{t_2}-X_{t_1},X_{t_3}-X_{t_2},\dots，X_{t_n}-X_{t_{n-1}}$相互独立.
+    
+    3. 稳定增量：对任何s<t, $X_{t}-X_{s}$ 与 $X_{t-s}$有相同分布 .  
+    
+    4. X几乎确定是右连左极.
+    
+我们把X称作levy过程.
+
+\section{无限可分过程}
+为了更好地理解levy过程，我们首先需要讨论无限可分布的分布。
+
+定义1.2 对于一个随机变量U,如果存在一系列的独立同分布的随机变量$U_{1,n},\dots,U_{n,n}$，使得U$\overset{\text{d}}{=}U_{1,n},\dots,U_{n,n}$,那么随机变量U拥有无限可分分布，$\overset{\text{d}}{=}$意味着同分布.
+
+关于无限可分布分布的基本定理是根据我们现在定义的特征指数来表达的。 回想一下，如果U是一个随机变量，那么它的特征函数（傅里叶变换）h：R $\to$ C为：h($\theta$)=E[$e^{i\theta U}$],$\theta \in R$.
+
+接下来我们再来看一个定理。
+
+定理1.3 设U是一个无限可分的随机变量，h是其特征函数。 然后：
+
+1.函数h是连续的且非零的，并且h(0)= 1。
+
+2.存在一个唯一的连续函数f：R $\to$ C，使得对于所有$\theta \to R $以及f(0)= 0，$e^{f(\theta)}= h(\theta)$。 我们将通过log来表示函数，并且指出U的特征指数。
+
+对于上面的定理，我们可以知道，假设U1和U2是具有特征函数h1和h2以及特征指数f1和f2的两个独立的无限可分的随机变量。然后，将随机变量U = U1 + U2具有无限可分分布，并且如果我们用H和F 定义U的特征函数和指数，则h = h1*h2和f = f1 + f2。
+
+
+定理1.4 如果X是一个levy过程，对于任何$t \geq 0$,随机变量 $X_{t_1} $ 拥有无限可分分布.
+
+接下来我们看一下简单的证明。
+
+如果X是levy过程，并且$t \geq 0$.那么对于n=1,2,\dots,\[ X_{t}=X_{t/n}+(X_{2t/n}-X_{t/n})+\dots+(X_{t}-X{(n-1)t/n})\]右边的每项都是独立同分布，并且有独立稳定增量属性，因此，${X_{t}}$拥有无限可分分布.
+
+接下来，我们看下一维levy过程的特征函数，对于levy过程X,$X_{t}$的特征指数为$\psi_{t}$，\[e^{\psi_{t}(\theta)}=E[e^{i \theta X_{t}}] ,\theta \in R \]通过上面的公式，我们可以得到\[ m\psi_{1}(\theta)=\psi_{m}(\theta)=n\psi_{m/n}(\theta)\] 也就是说对于$t \geq 0$，\[\psi_{t}(\theta)=t\psi_{1}(\theta)\]因此，我们可以得到\[E[e^{i\theta X_{t}}]=e^{t\psi(\theta)}, \theta \in R\]其中，$\psi$:=$\psi_{1}$是$X_{1}$的特征指数.
+
+定理1.5 莱维辛钦定理  X为levy过程，特征指数为$\psi$.存在唯一的$a \in R,\sigma \geq 0$以及测度$\prod$,满足$\int_R 1 \bigwedge x \prod \,dx$  \[\psi(\theta)=ia\theta-\frac{1}{2}\sigma_{2}\theta_{2}+(e^{i\theta x}-1-i\theta xI_{[-1,1]}(x))\prod(dx)\]对于上述三个参数($a,\sigma,\prod$)，a包含了任何确定的漂移项，$\sigma$是高斯系数，描述了布朗运动的波动性，而$\prod$描述了X跳跃的大小和强度
+
+\section{莱维过程的特例}
+possion 过程  
+
+possion过程的概率密度函数为$\mu_{\lambda({k})}=e^{-\lambda}\lambda^{k}/k!$,因此possion分布的特征函数为\[\sum_{k=1}^{n}e^{i\theta k}\mu_{\lambda}({k})=e^{\lambda(e^{i\lambda}-1)}=[e^{\frac{\lambda}{n}}(e^{i\theta}-1)]^{n} \]因此对于一个possion过程{$N_{t}:t \geq 0$}如果参数为$\lambda t$，则是levy过程，特征函数为$E(e^{i\theta N_{t}})=e^{\lambda t(e^{i\theta}-1)}$,特征指数为$\psi(\theta)=\lambda(e^{i\theta}-1)$
+
+复合possion过程
+
+  N为possion过程，对于$\theta \in R $,特征函数为\[E(e^{i\theta\sum_{i=1}^{N}\xi_{i}})=\sum_{n\geq0}E(e^{i\theta\sum_{i=1}^{N}\xi_{i}})e^{-\lambda}\frac{\lambda^{n}}{n!}
+  =\sum_{n\geq0}(\int_R e^{i\theta x}F(dx)\,)^{n}e^{-\lambda}=e^{\lambda\int_R e^{i\theta x}F(dx)\,} \]其中三个参数分别为$a=\lambda\int_{0<|x|<1}xF(dx) \,$,$\sigma=0$,$\prod(dx)=\lambda F(dx)$.
+
+布朗运动
+
+布朗运动的概率密度函数为：\[\mu_{s,\gamma}(dx):=\frac{1}{\sqrt{2\pi s^{2}}}e^{-(x-\gamma)^{2}/2s^{2}}dx ,x \in R\]我们可以得到他的特征函数和特征指数：\[E[i\theta U]=e^{\frac{1}{2}s^{2}\theta^{2}+i\theta\gamma}\]三个参数为$a=-\gamma,\sigma=s,\prod=0$
+
+\section{莱维伊藤分解}
+
+根据莱维-辛钦定理，我们可以得到如下公式\[\Psi(\theta)=\{ia\theta+\frac{1}{2}\sigma^{2}\theta^{2}\}+\{\prod(R\backslash(-1,1))\int_{|x|\geq1}(1-e^{i\theta x})\frac{\prod{dx}}{\prod(R\backslash(-1,1)} \,\}\]\newline\[+\{\int_{0<|x|<1}(1-e^{i\theta x}+i\theta x)\prod(dx) \,\} \]
+第一项是线性布朗运动，第二项是复合泊松过程，第三项是平方可积鞅.因此levy过程可由这三个过程组合而成.
+
+\end{document}
