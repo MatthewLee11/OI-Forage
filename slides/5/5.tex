@@ -2,223 +2,6 @@
 \section{分解定理}\fontsize{10pt}{10pt}\selectfont
 
 
-\frame{\frametitle{背景}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright
-细菌觅食算法(BFA)由K. M. Passino于2002年基于Ecoli大肠杆菌在人体肠道内吞噬食物的行为，提出一种新型随机搜索算法。该算法因具有群体智能算法并行搜索、易于跳出局部极小值、对初值和参数选择要求低、鲁棒性好、全局搜索等优点，成为生物启发式计算研究领域的又一热点。
-\begin{figure}[H]
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[width=8cm]{5/figure/1.png}\\
-  \caption{群体智能}\label{fig1}
-\end{figure}
-
-}
-
-\frame{\frametitle{大肠杆菌特点}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright	
-基于大肠杆菌生物模型理论，算法主要融合了大肠杆菌的趋化行为、复制行为、迁徙行为和描述生物群体感应机制的聚集行为。大肠杆菌是一种常见的普通原核生物，由细胞膜、细胞壁、细胞质和细胞核等构成，其两端钝圆呈杆状。表面布满纤毛和鞭毛。纤毛是一种呈凸起状且可运动的细胞器，通过纤毛向彼此传递消息。
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[width=8cm]{5/figure/2.png}\\
-  \caption{大肠杆菌模型}\label{fig2}
-\end{figure}
-
-}
-\frame{\frametitle{大肠杆菌特点}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright	
-大肠杆菌依靠其表面的鞭毛进行每秒大约100~200圈的转动以此来实现其自身的运动，当鞭毛逆时针摆动时，会给细菌一个向前的推力保证其向前游走；而当鞭毛进行顺时针摆动时，会给其一个拉力其细菌翻转。大肠杆菌正是通过游动和翻转这两个基本动作组合来实现其在空间区域中的移动。
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[width=8cm]{5/figure/3.png}\\
-  \caption{大肠杆菌运动模型}\label{fig3}
-\end{figure}
-
-}
-
-\frame{\frametitle{大肠杆菌特点}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright	
-大肠杆菌虽是一种简单的生物，但对所经历的周围环境具有记忆其状态的能力，这种能力帮助大肠杆菌在搜索食物的过程中避开有毒物质向着存在食物的方向运动。同时，大肠杆菌也会对所经历过的所有状态都行评价据此反馈信息给后面的状态改变。包括周围环境的物理、化学因素变动所引起的温度过高、营养匮乏、环境PH值过偏等；也包括细菌本身的生理代谢过程也会使得所处环境发生变化。区域细菌浓度也是信号之一。
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[width=8cm]{5/figure/8.png}\\
-  \caption{应用示意图}\label{fig8}
-\end{figure}
-
-}
-
-\frame{\frametitle{大肠杆菌特点}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright	
-通常食物是分布在多个区域之中的。首先，大肠杆菌利用自己的鞭毛进行游动来搜索食物的潜在区域。然后大肠杆菌决定是否进入选择的目标区域，若不进入，则继续搜索。当进入一个目标区域后，如果食物丰富，则停留至食物耗尽，之后沿着上次前进的方向继续搜索食物；如若该区域食物匮乏，那么细菌将会改变前进方向，朝着可能食物丰富区域搜索。
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[width=5cm]{5/figure/4.png}\\
-  \caption{大肠杆菌搜索食物流程图}\label{fig4}
-\end{figure}
-
-}
-
-
-\frame{\frametitle{算法基本原理}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright
-大肠杆菌自身的引导控制系统来趋利避害。算法中待求解优化问题的解空间对应为细菌觅食的整个搜索空间，各个优化问题的解则对应为细菌在空间中的位置，那么最优解总是被由更好食物源位置所对应的更好的优化问题解所不断靠近。
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[width=8cm]{5/figure/5.png}\\
-  \caption{求解过程}\label{fig5}
-\end{figure}
-
-}
-
-\frame{\frametitle{算法基本原理}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright
-细菌觅食算法是随机搜索的智能优化算法，其数学模型主要有三个基本步骤：趋向、复制、迁移。几何解释为三个循环层操作，最里层是趋向，中间层是复制，最外层是迁移。细菌觅食主要就是依据这三层循环操作来寻找食物。
-}
-\frame{\frametitle{算法基本原理}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright
-其觅食特点依靠鞭毛的旋转方向，逆时针，快速前进；顺时针，则停留原地。相应的数学模型解释就是计算出两个点位置的函数的适应度值，通过比较结果决定大肠杆菌是继续前进还是寻找随机方向移动，当尝试次数达到最大限制数时选择下一个大肠杆菌进行趋向性操作。其数学表达式为
-\begin{equation}
-\theta^{'}(j+1,k,l)=\theta^{'}(j,k,l)+C(i)\frac{\Delta(i)}{\sqrt{\Delta(i)^T\Delta(i)}}
-\end{equation}
-其中$\theta^{'}(j,k,l)$表示大肠杆菌$i$在第$j$次趋向第$k$次复制第$l$ 次迁移操作之后所在的位置，$C(i)$为趋向步长，$\frac{\Delta(i)}{\sqrt{\Delta(i)^T\Delta(i)}}$为移动的一个随机前进方向。
-}
-\frame{\frametitle{算法基本原理}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright
-自然界生物进化的准则是优胜劣汰，因此性能差的细菌会被淘汰。在BFA模型中,$J(i,j,k,l)$表示细菌$i$在第$j$次趋向第$k$次复制第$l$次迁移操作之后的适应值。$J_{health}^i$ 是细菌$i$的能量函数，其大小决定细菌觅食能力的强弱。将觅食后的细菌的能量函数进行大小排序，淘汰掉$\frac{S}{2}$个能量值较小的细菌，将剩下的进行复制操作，新生成的复制细菌与原细菌具有相同的觅食能力。
-
-}
-\frame{\frametitle{算法基本原理}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright
-在生物体中存在的细菌，其环境对其觅食具有很大的影响，比如局部区域温度升高或者食物被消耗掉，这些必然导致细菌被迫迁移到新的区域去寻找食物。这种迁移未必会导致细菌寻找不到新的食物，反而会对种群的良好生长起到促进作用，在经过复制操作之后细菌若按照一定的概率进行迁移，新的种群具有随机特性，与原种群相比可能有不同的觅食能力，这种随机性能使群体跳出局部极值而更好的靠近全局最优解区域。
-
-}
-\frame{\frametitle{算法基本原理}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright
-在细菌觅食过程中，并不是独立行为，即在模型中体现为引力和斥力，当引力作用是，细菌会快速的聚集在一起，围绕最优食物觅食，形成细菌群。当斥力起作用时，表示细菌能具有更好的独立寻找食物的能力。其数据模型为
-\begin{equation}
-\begin{split}
-J_{cc}(\theta,P(j,k,l))&=\sum_{i=1}^SJ_{cc}(\theta,\theta^i(j,k,l))\\
-                       &=\sum_{i=1}^S[-d_{att}\exp(-\omega_{att}\sum_{m=1}^P(\theta-\theta_m^i)^2)]\\
-                       &+\sum_{i=1}^S[h_{rep}\exp(-\omega_{rep}\sum_{m=1}^P(\theta-\theta_m^i)^2)]
-\end{split}
-\end{equation}
-其中$d_{att}$是引力深度，$\omega_{att}$是引力宽度，$h_{rep}$是斥力高度，$\omega_{rep}$是斥力宽度，$\theta_m^i$是细菌$i$的第$m$个分量。通常取$d_{att}=h_{rep}$，趋向性操作的适应度值的计算公式可表示为：
-\begin{equation}
-J(i,j+1,k,l)=J(i,j,k,l)+J_{cc}(\theta^i(j+1,k,l),P(j+1,k,l))
-\end{equation}
-}
-\frame{\frametitle{算法主要步骤}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright
-
-Step1:初始化参数，种群大小$S$，空间维数$P$,趋向性行为的次数$N_c$，趋向性操作前进最大步数$N_s$,复制性操作的次数$N_{re}$，迁移操作的次数$N_{ed}$,迁移概率$P_{ed}$，细菌$i$的信息用$D$维向量表示为$\theta^i=[\theta_1^i,theta_2^i,...,\theta_D^i],i=1,2,...,S,$趋向性步长$C(i)$.
-
-Step2:迁移循环操作；
-
-Step3:复制循环操作；
-
-Step4:趋向性循环操作；
-
-(1)细菌$i$进行趋向性一步；
-
-(2)计算$J(i,j,k,l)$,储存最优值$J_{best}$；
-
-(3)随机生成向量$\Delta(i)$，细菌按照步长$C(i)$进行移动；
-
-(4)计算此时的适应度值$J(i,j+1,k,l)$;
-
-(5)旋转判定条件：若$m<N_s,m=m+1$,若$J(i,j+1,k,l)<J_{best}$，则$J_{best}=J_m^i(j+1,k,l)$,此时$\theta^i(j+1,k,l)=\theta^i(j,k,l)+C(i)\frac{\Delta(i)}{\sqrt{\Delta(i)^T\Delta(i)}}$. 根据细菌的信息量$\theta^i(j+1,k,l)$计算新的$J(i,j+1,k,l)$否则$m=N_s$.
-
-(6)重新处理下一个细菌。
-
-
-}
-
-
-\frame{\frametitle{算法主要步骤}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright
-
-Step5:若$j<N_c$返回上一步进行细菌趋向性操作。
-
-Step6:复制，淘汰$\frac{S}{2}$个能量值小的细菌，对剩下的$\frac{S}{2}$个细菌进行复制。
-
-Step7:若$k<N_{re}$，返回Step3.
-
-Step8:迁移，达到一定条件后细菌以概率$P_{ed}$重新觅食。若$l<N_{ed}$，则返回Step2，否则寻优结束。
-
-Step9:循环结束条件判断，条件满足则结束，输出结果。
-}
-\frame{\frametitle{参数选取}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright
-
-模型中种群的规模$S$太大导致计算量增大,太小会降低种群的多样性;趋向性步长$C$太大时,优化值易陷入局部极值;当太小时,算法的计算复杂度会大幅度增加,不利于算法收敛;引力参数$d_{att}$和$\omega_{att}$大小决定算法的群聚性，如果值较大会导致不按照自己的信息搜索寻找食物而过度的向中心靠拢，反之太小会完全按照自身信息搜索食物导致群聚性能很弱，斥力参数$h_{rep},\omega_{rep}$与引力参数相反；趋向性操作因子$N_c$决定算法的寻优能力和收敛速度；趋向性参数$N_s$最大步长对算法的收敛速度有很大的影响；赋值操作因子$N_{re}$决定算法的计算复杂度和收敛速度，并且复制操作所采取的原则计算出的适应度值只与当前位置有关，导致最优解被淘汰掉容易陷入局部最优；迁移操作因子执行次数$N_{ed}$太小会使算法陷入局部最优，反之计算量和复杂度增加，迁移概率$P_{ed}$太大会使算法进入循环搜索，以至远离最优解。
-
-}
-\frame{\frametitle{案例}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright	
-对优化问题$\min\sum_{i=1}^nx_i^2+x_i$做测试。
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[width=8cm]{5/figure/6.png}\\
-  \caption{测试案例}\label{fig6}
-\end{figure}
-
-}
-
-\frame{\frametitle{仿真结果}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright
-对算法进行10000次仿真。对如下四个标志数据：最小值、最大值、平均值、标准差等做评价。
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[width=8cm]{5/figure/7.png}\\
-  \caption{测试结果}\label{fig7}
-\end{figure}
-
-}
-
-\frame{\frametitle{算法应用}
-\parindent=19pt	
-\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
-\raggedright
- 在控制领域主要是控制器设计，可以用细菌觅食算法求解PID控制器参数优化问题。同样，BFA在图像处理领域中得到很好的应用，主要应用于图像分割、边缘检测、图像压缩等。亦可将细菌觅食算法应用到神经网络学习机制中，应用到负荷预测。也可通过BFA来优化模糊系统的参数，优化后的滤波器优于传统的卡尔曼滤波器。在盲信号分离也可应用BFA，在模式识别领域得到广泛探索。此外，细菌觅食算法在调度问题、股票经济预测、组合优化等问题中也有广泛应用。
-}
 \frame{\frametitle{觅食策略}
 \parindent=19pt	
 \renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
@@ -405,7 +188,7 @@ m\ddot{x}=-\mu \dot{x}(t)+\eta(t).
 \renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
 \raggedright	
 \textbf{推论1：}
-(1)对任意的$t>0,\omega\in\Omega,N(t,\cdot)(\omega)$在$\mathcal{B}(\mathbf{R}^d\backslash \{0\})$上是计数可测的。
+(1)对任意的$t>0,\omega\in\Omega,N(t,\cdot)(\omega)$ 在$\mathcal{B}(\mathbf{R}^d\backslash \{0\})$上是计数可测的。
 
 (2)对于任意的有下界的$A$,$N(t,A),t\ge0$是泊松过程且具有如下强度$\mu(A)=\mathbf{E}[N(1,A)]$.
 
@@ -449,7 +232,7 @@ Var[|\int_{A}f(x)N(t,dx)|]=t\int_{A}|f(x)|^2\mu(dx).
 \end{equation}
 则有如下结论：
 
-(1) $\int_{A}f(x)\tilde{N}(t,dx),t\ge0$是一个鞅。
+(1) $\int_{A}f(x)\tilde{N}(t,dx),t\ge0$ 是一个鞅。
 
 (2)
 特征函数：
@@ -479,7 +262,7 @@ Var[|\int_{A}f(x)\tilde{N}(t,dx)|]=t\int_{A}|f(x)|^2\mu(dx).
 \parindent=19pt	
 \renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
 \raggedright	
-现在把关注度放在小跳变上来。引入$M(t,A)=\int_{A}f(x)\tilde{N}(t,dx)$.令$A_m=\{x:\frac{1}{m+1}<|x|\le1\}$.可以证明在$L^2$里，当$m\to\infty$ 时，我们有$M(t,A_m)\to\int_{|x|<1}x\tilde{N}(t,dx)$。所以$\int_{|x|<1}x\tilde{N}(t,dx)$是一个鞅。取极限得
+现在把关注度放在小跳变上来。引入$M(t,A)=\int_{A}f(x)\tilde{N}(t,dx)$.令$A_m=\{x:\frac{1}{m+1}<|x|\le1\}$.可以证明在$L^2$里，当$m\to\infty$ 时，我们有$M(t,A_m)\to\int_{|x|<1}x\tilde{N}(t,dx)$。 所以$\int_{|x|<1}x\tilde{N}(t,dx)$是一个鞅。取极限得
  \begin{equation}
 \mathbf{E}[exp\{iu\cdot\int_{A}x\tilde{N}(t,dx)\}]=exp\{t\int_{A}(e^{iu\cdot x}-1-iu\cdot x)\mu(dx)\}.
 \end{equation}
@@ -530,7 +313,7 @@ X(t)=b_{\infty}t+W_{A}(t)+\int_{|x|\ge 0}x\tilde{N}(t,dx).
 %
 %(1)$X(t)$关于$t$是连续函数；且几乎 处处不可微。
 %
-%(2)$\{X(t),t\ge0\}$具有平稳独立增量:对任意的有限正数$0=t_0<t_1<\cdots<t_n$，随机变量$X(t_0),X(t_1)-X(t_0),...,X(t_n)-X(t_{n-1})$相互独立。
+%(2)$\{X(t),t\ge0\}$具有平稳独立增量:对任意的有限正数$0=t_0<t_1<\cdots<t_n$，随机变量$X(t_0),X(t_1)-X(t_0),...,X(t_n)-X(t_{n-1})$ 相互独立。
 %
 %(3)$\forall s,t>0,\text{ s.t. } X(s+t)-X(s)\sim N(0,\sigma^2t)$
 %
@@ -555,11 +338,11 @@ X(t)=b_{\infty}t+W_{A}(t)+\int_{|x|\ge 0}x\tilde{N}(t,dx).
 %\parindent=19pt	
 %\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
 %\raggedright	
-%\textbf{定义：}概率空间$(\Omega,\mathcal{F},\mathbb{P})$上的随机过程$\{X(t),t\ge0\}$称为高斯过程，若对任意的$n\ge1,t_1,t+2,...,t_n,(X(t_1),...,X(t_n))$服从高斯分布。
+%\textbf{定义：}概率空间$(\Omega,\mathcal{F},\mathbb{P})$上的随机过程$\{X(t),t\ge0\}$称为高斯过程，若对任意的$n\ge1,t_1,t+2,...,t_n,(X(t_1),...,X(t_n))$ 服从高斯分布。
 %
 %\textbf{定理：}设$B=\{B(t),t\ge0\}$是零初值的实值随机过程。则它是布朗运动的充要条件是它是一个高斯过程，并且$\mathbb{E}(B(t))=0,\mathbb{E}(B(t)B(s))=t\wedge s=\min(s,t).$
 %
-%\textbf{证明：}必要性。由独立增量性$n\ge1,t_1,t+2,...,t_n,(X(t_1),...,X(t_n))$服从高斯分布。又因为
+%\textbf{证明：}必要性。由独立增量性$n\ge1,t_1,t+2,...,t_n,(X(t_1),...,X(t_n))$ 服从高斯分布。又因为
 %\begin{equation}
 %\left(\begin{array}{c}B(t_1)\\
 %                      B(t_2)\\
@@ -673,7 +456,7 @@ X(t)=b_{\infty}t+W_{A}(t)+\int_{|x|\ge 0}x\tilde{N}(t,dx).
 %                                                    0,&j=i
 %                                                    \end{array}\right.
 %\end{equation}
-%4.设$0\le n_1<n_2<n_3<\cdots<n_k,$则$\{W_{n_k}-W_{n_{k-1}},....,W_{n_2}-W_{n_1}\}$为独立随机变量。
+%4.设$0\le n_1<n_2<n_3<\cdots<n_k,$则$\{W_{n_k}-W_{n_{k-1}},....,W_{n_2}-W_{n_1}\}$ 为独立随机变量。
 %}
 %
 %
@@ -695,7 +478,7 @@ X(t)=b_{\infty}t+W_{A}(t)+\int_{|x|\ge 0}x\tilde{N}(t,dx).
 %\parindent=19pt	
 %\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
 %\raggedright	
-%令$\mathbf{A}\subseteq\mathbf{Z}$。定义$f_{\mathbf{A}}(i)=P\{W_k\in\mathbf{A},\forall  k\ge1|W_0=i\}(i\in\mathbf{A})$。$f_{\mathbf{A}}(i)$表示$\{W_n\}$从$i$出发一直留在$\mathbf{A}$中的概率。
+%令$\mathbf{A}\subseteq\mathbf{Z}$。定义$f_{\mathbf{A}}(i)=P\{W_k\in\mathbf{A},\forall  k\ge1|W_0=i\}(i\in\mathbf{A})$。$f_{\mathbf{A}}(i)$ 表示$\{W_n\}$从$i$出发一直留在$\mathbf{A}$中的概率。
 %
 %\textbf{定理：}若$\mathbf{A}$只包含有限个整数，则$f_{\mathbf{A}}(i)=0,\forall i\in\mathbf{A}$.
 %
